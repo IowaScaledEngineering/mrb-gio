@@ -1,19 +1,19 @@
 # release: pcb 20100929
-# date:    Wed Dec 19 22:17:38 2012
+# date:    Thu Dec 20 22:37:32 2012
 # user:    railfan (Michael Petersen,,,)
 # host:    sylvanite
 
 # To read pcb files, the pcb version (or the git source date) must be >= the file version
 FileVersion[20100606]
 
-PCB["" 600000 500000]
+PCB["" 600000 700000]
 
 Grid[500.000000 0 0 0]
 Cursor[0 0 0.000000]
 PolyArea[200000000.000000]
 Thermal[0.500000]
 DRC[800 800 800 1000 2000 800]
-Flags("nameonpcb,uniquename,clearnew,snappin")
+Flags("showdrc,rubberband,nameonpcb,clearnew,snappin")
 Groups("1,c:2,s")
 Styles["Signal,1000,3600,2000,1000:Power,2500,6000,3500,1000:Fat,4000,6000,3500,1000:Skinny,600,2402,1181,600"]
 
@@ -797,24 +797,456 @@ Symbol('~' 12)
 	SymbolLine(15 35 20 35 8)
 	SymbolLine(20 35 25 30 8)
 )
+Via[308500 96000 3600 2000 0 2000 "" ""]
+Via[308500 85000 3600 2000 0 2000 "" ""]
+Via[308500 74000 3600 2000 0 2000 "" ""]
+Via[289000 90500 3600 2000 0 2000 "" ""]
+Via[281500 77000 3600 2000 0 2000 "" ""]
+Via[248000 76000 3600 2000 0 2000 "" "thermal(1S)"]
+Via[262000 94000 3600 2000 0 2000 "" "thermal(1S)"]
+Via[192000 103500 3600 2000 0 2000 "" "thermal(1S)"]
+Via[207500 103500 3600 2000 0 2000 "" "thermal(1S)"]
+Via[192000 99000 3600 2000 0 2000 "" "thermal(1S)"]
+Via[192000 94500 3600 2000 0 2000 "" "thermal(1S)"]
+Via[207500 99000 3600 2000 0 2000 "" "thermal(1S)"]
+Via[228500 93500 3600 2000 0 2000 "" ""]
+Via[233000 93500 3600 2000 0 2000 "" ""]
+Via[229500 106500 3600 2000 0 2000 "" ""]
+Via[229500 111000 3600 2000 0 2000 "" ""]
+Via[229500 115500 3600 2000 0 2000 "" ""]
+Via[229500 120000 3600 2000 0 2000 "" ""]
+Via[183000 127500 3600 2000 0 2000 "" ""]
+Via[185500 123500 3600 2000 0 2000 "" ""]
+Via[183500 119500 3600 2000 0 2000 "" ""]
 
-Element["" "cap-elec-Panasonic-FK--D8.00-H10.20-mm" "C1" "100uF" 110000 370000 -13600 -19800 0 100 ""]
+Element["" "tantalum_a" "C4" "22uF" 199500 106500 -2500 10000 0 100 ""]
 (
-	Pad[-4500 0 4500 0 4300 3000 4900 "+" "1" "square"]
-	Pad[21000 0 30100 0 4300 3000 4900 "2" "2" "square,edge2"]
-	ElementLine [-7600 -8600 3300 -17300 1000]
-	ElementLine [3300 -17300 33200 -17300 1000]
-	ElementLine [33200 -17300 33200 17300 1000]
-	ElementLine [33200 17300 3300 17300 1000]
-	ElementLine [3300 17300 -7600 8600 1000]
-	ElementLine [-7600 8600 -7600 -8600 1000]
+	Pad[-1800 -5000 1800 -5000 4900 2000 5500 "1" "1" "square"]
+	Pad[-1800 5000 1800 5000 4900 2000 5500 "2" "2" "square"]
+	ElementLine [-4300 -9600 4300 -9600 2000]
+	ElementLine [-4300 -9600 -5500 -7200 1000]
+	ElementLine [-5500 -7200 -5500 8600 1000]
+	ElementLine [-5500 8600 5500 8600 1000]
+	ElementLine [5500 -7200 5500 8600 1000]
+	ElementLine [5500 -7200 4300 -9600 1000]
 
 	)
 
-Element["" "TERMBLK2_200MIL" "JG4" "unknown" 70000 370000 0 0 3 100 ""]
+Element["" "0805" "C3" "1uF" 186000 108000 -2500 -13000 0 100 ""]
 (
-	Pin[0 -10000 8000 3000 8600 4800 "1" "1" "square"]
-	Pin[0 10000 8000 3000 8600 4800 "2" "2" ""]
+	Pad[-393 -3543 393 -3543 5118 2000 5718 "1" "1" "square"]
+	Pad[-393 3543 393 3543 5118 2000 5718 "2" "2" "square"]
+	ElementLine [2755 -393 2755 393 1000]
+	ElementLine [-2755 -393 -2755 393 1000]
+
+	)
+
+Element["" "1206" "D1" "unknown" 208500 83500 6000 -9000 0 100 ""]
+(
+	Pad[-1181 5905 1181 5905 5118 2000 5718 "CATHODE" "1" "square"]
+	Pad[-1181 -5905 1181 -5905 5118 2000 5718 "ANODE" "2" "square"]
+	ElementLine [-3740 -2362 -3740 2362 1000]
+	ElementLine [3740 -2362 3740 2362 1000]
+
+	)
+
+Element["" "0805" "R1" "330" 208500 64000 5500 -3000 0 100 ""]
+(
+	Pad[-393 3543 393 3543 5118 2000 5718 "1" "1" "square"]
+	Pad[-393 -3543 393 -3543 5118 2000 5718 "2" "2" "square"]
+	ElementLine [-2755 -393 -2755 393 1000]
+	ElementLine [2755 -393 2755 393 1000]
+
+	)
+
+Element["hidename" "TERMBLK2_200MIL" "JB2" "unknown" 300500 147500 0 0 0 100 ""]
+(
+	Pin[-10000 0 8000 3000 8600 4800 "1" "1" "edge2"]
+	Pin[10000 0 8000 3000 8600 4800 "2" "2" "edge2"]
+	ElementLine [-20000 12800 20000 12800 1000]
+	ElementLine [6000 -17200 20000 -17200 1000]
+	ElementLine [6000 -12800 20000 -12800 1000]
+	ElementLine [-20000 0 -20000 12800 1000]
+	ElementLine [20000 -17200 20000 12800 1000]
+
+	)
+
+Element["hidename" "TERMBLK2_200MIL" "JV3" "unknown" 502500 65000 0 0 1 100 ""]
+(
+	Pin[0 10000 8000 3000 8600 4800 "1" "1" ""]
+	Pin[0 -10000 8000 3000 8600 4800 "2" "2" ""]
+	ElementLine [12800 -20000 12800 20000 1000]
+	ElementLine [-17200 -20000 -17200 20000 1000]
+	ElementLine [-12800 -20000 -12800 20000 1000]
+	ElementLine [-17200 20000 12800 20000 1000]
+	ElementLine [-17200 -20000 12800 -20000 1000]
+
+	)
+
+Element["hidename" "TERMBLK2_200MIL" "JV2" "unknown" 502500 105000 0 0 1 100 ""]
+(
+	Pin[0 10000 8000 3000 8600 4800 "1" "1" ""]
+	Pin[0 -10000 8000 3000 8600 4800 "2" "2" ""]
+	ElementLine [12800 -20000 12800 20000 1000]
+	ElementLine [-17200 -20000 -17200 20000 1000]
+	ElementLine [-12800 -20000 -12800 20000 1000]
+	ElementLine [-17200 20000 12800 20000 1000]
+	ElementLine [-17200 -20000 12800 -20000 1000]
+
+	)
+
+Element["hidename" "TERMBLK2_200MIL" "JE2" "unknown" 140500 22500 0 0 2 100 ""]
+(
+	Pin[10000 0 8000 3000 8600 4800 "1" "1" "edge2"]
+	Pin[-10000 0 8000 3000 8600 4800 "2" "2" "edge2"]
+	ElementLine [-20000 -12800 20000 -12800 1000]
+	ElementLine [-20000 17200 -6000 17200 1000]
+	ElementLine [-20000 12800 -6000 12800 1000]
+	ElementLine [20000 -12800 20000 0 1000]
+	ElementLine [-20000 -12800 -20000 17200 1000]
+
+	)
+
+Element["hidename" "modular_6p6c_lp.fp" "JE5" "unknown" 160500 11500 9500 -9843 3 100 ""]
+(
+	Attribute("author" "Alexander Kurz")
+	Attribute("copyright" "2009 Alexander Kurz")
+	Attribute("use-license" "Unlimited")
+	Attribute("dist-license" "CC-BY-SA-3.0")
+	Attribute("height" "11.5mm")
+	Attribute("ref" "Molex document number 50-95501-001 R/A low profile pc jack 4,6,8 ckrs site through hole version")
+	Pin[12500 35000 7000 2000 7500 3000 "1" "1" "edge2"]
+	Pin[7500 25000 7000 2000 7500 3000 "2" "2" "edge2"]
+	Pin[2500 35000 7000 2000 7500 3000 "3" "3" "edge2"]
+	Pin[-2500 25000 7000 2000 7500 3000 "4" "4" "edge2"]
+	Pin[-7500 35000 7000 2000 7500 3000 "5" "5" "edge2"]
+	Pin[-12500 25000 7000 2000 7500 3000 "6" "6" "edge2"]
+	Pin[20000 0 12800 2000 13000 12800 "" "" "hole,edge2"]
+	Pin[-20000 0 12800 2000 13000 12800 "" "" "hole,edge2"]
+	ElementLine [-26000 40300 26000 40300 1000]
+	ElementLine [26000 17000 26000 40300 1000]
+	ElementLine [-26000 17000 -26000 40300 1000]
+
+	)
+
+Element["hidename" "TERMBLK2_200MIL" "JG4" "unknown" 20500 22500 0 0 2 100 ""]
+(
+	Pin[10000 0 8000 3000 8600 4800 "1" "1" "edge2,thermal(0X)"]
+	Pin[-10000 0 8000 3000 8600 4800 "2" "2" "edge2,thermal(0X)"]
+	ElementLine [-20000 -12800 20000 -12800 1000]
+	ElementLine [-20000 17200 20000 17200 1000]
+	ElementLine [-20000 12800 20000 12800 1000]
+	ElementLine [20000 -12800 20000 17200 1000]
+	ElementLine [-20000 -12800 -20000 17200 1000]
+
+	)
+
+Element["hidename" "TERMBLK2_200MIL" "JC4" "unknown" 460500 22500 0 0 2 100 ""]
+(
+	Pin[10000 0 8000 3000 8600 4800 "1" "1" "edge2"]
+	Pin[-10000 0 8000 3000 8600 4800 "2" "2" "edge2"]
+	ElementLine [-20000 -12800 20000 -12800 1000]
+	ElementLine [-20000 17200 20000 17200 1000]
+	ElementLine [-20000 12800 20000 12800 1000]
+	ElementLine [20000 -12800 20000 17200 1000]
+	ElementLine [-20000 -12800 -20000 17200 1000]
+
+	)
+
+Element["hidename" "TERMBLK2_200MIL" "JC3" "unknown" 500500 22500 0 0 2 100 ""]
+(
+	Pin[10000 0 8000 3000 8600 4800 "1" "1" "edge2"]
+	Pin[-10000 0 8000 3000 8600 4800 "2" "2" "edge2"]
+	ElementLine [-20000 -12800 20000 -12800 1000]
+	ElementLine [-20000 17200 20000 17200 1000]
+	ElementLine [-20000 12800 20000 12800 1000]
+	ElementLine [20000 -12800 20000 17200 1000]
+	ElementLine [-20000 -12800 -20000 17200 1000]
+
+	)
+
+Element["hidename" "modular_6p6c_lp.fp" "JE6" "unknown" 80500 11500 9500 -9843 3 100 ""]
+(
+	Attribute("author" "Alexander Kurz")
+	Attribute("copyright" "2009 Alexander Kurz")
+	Attribute("use-license" "Unlimited")
+	Attribute("dist-license" "CC-BY-SA-3.0")
+	Attribute("height" "11.5mm")
+	Attribute("ref" "Molex document number 50-95501-001 R/A low profile pc jack 4,6,8 ckrs site through hole version")
+	Pin[12500 35000 7000 2000 7500 3000 "1" "1" "edge2"]
+	Pin[7500 25000 7000 2000 7500 3000 "2" "2" "edge2"]
+	Pin[2500 35000 7000 2000 7500 3000 "3" "3" "edge2"]
+	Pin[-2500 25000 7000 2000 7500 3000 "4" "4" "edge2"]
+	Pin[-7500 35000 7000 2000 7500 3000 "5" "5" "edge2"]
+	Pin[-12500 25000 7000 2000 7500 3000 "6" "6" "edge2"]
+	Pin[20000 0 12800 2000 13000 12800 "" "" "hole,edge2"]
+	Pin[-20000 0 12800 2000 13000 12800 "" "" "hole,edge2"]
+	ElementLine [-26000 40300 26000 40300 1000]
+	ElementLine [26000 17000 26000 40300 1000]
+	ElementLine [-26000 17000 -26000 40300 1000]
+
+	)
+
+Element["hidename" "TERMBLK2_200MIL" "JC1" "unknown" 460500 147500 0 0 0 100 ""]
+(
+	Pin[-10000 0 8000 3000 8600 4800 "1" "1" "edge2"]
+	Pin[10000 0 8000 3000 8600 4800 "2" "2" "edge2"]
+	ElementLine [-20000 12800 20000 12800 1000]
+	ElementLine [-20000 -17200 20000 -17200 1000]
+	ElementLine [-20000 -12800 20000 -12800 1000]
+	ElementLine [-20000 -17200 -20000 12800 1000]
+	ElementLine [20000 -17200 20000 12800 1000]
+
+	)
+
+Element["hidename" "TERMBLK2_200MIL" "JC2" "unknown" 500500 147500 0 0 0 100 ""]
+(
+	Pin[-10000 0 8000 3000 8600 4800 "1" "1" "edge2"]
+	Pin[10000 0 8000 3000 8600 4800 "2" "2" "edge2"]
+	ElementLine [-20000 12800 20000 12800 1000]
+	ElementLine [-20000 -17200 20000 -17200 1000]
+	ElementLine [-20000 -12800 20000 -12800 1000]
+	ElementLine [-20000 -17200 -20000 12800 1000]
+	ElementLine [20000 -17200 20000 12800 1000]
+
+	)
+
+Element["hidename" "TERMBLK2_200MIL" "JA1" "unknown" 60500 147500 0 0 0 100 ""]
+(
+	Pin[-10000 0 8000 3000 8600 4800 "1" "1" "edge2"]
+	Pin[10000 0 8000 3000 8600 4800 "2" "2" "edge2"]
+	ElementLine [-20000 12800 20000 12800 1000]
+	ElementLine [-20000 -17200 -6000 -17200 1000]
+	ElementLine [-20000 -12800 -6000 -12800 1000]
+	ElementLine [-20000 -17200 -20000 12800 1000]
+	ElementLine [20000 0 20000 12800 1000]
+
+	)
+
+Element["hidename" "TERMBLK2_200MIL" "JB1" "unknown" 260500 147500 0 0 0 100 ""]
+(
+	Pin[-10000 0 8000 3000 8600 4800 "1" "1" "edge2"]
+	Pin[10000 0 8000 3000 8600 4800 "2" "2" "edge2"]
+	ElementLine [-20000 12800 20000 12800 1000]
+	ElementLine [-20000 -17200 -6000 -17200 1000]
+	ElementLine [-20000 -12800 -6000 -12800 1000]
+	ElementLine [-20000 -17200 -20000 12800 1000]
+	ElementLine [20000 0 20000 12800 1000]
+
+	)
+
+Element["hidename" "TERMBLK2_200MIL" "JE4" "unknown" 60500 22500 0 0 2 100 ""]
+(
+	Pin[10000 0 8000 3000 8600 4800 "1" "1" "edge2"]
+	Pin[-10000 0 8000 3000 8600 4800 "2" "2" "edge2"]
+	ElementLine [-20000 -12800 20000 -12800 1000]
+	ElementLine [-20000 17200 -6000 17200 1000]
+	ElementLine [-20000 12800 -6000 12800 1000]
+	ElementLine [20000 -12800 20000 0 1000]
+	ElementLine [-20000 -12800 -20000 17200 1000]
+
+	)
+
+Element["hidename" "TERMBLK2_200MIL" "JB4" "unknown" 380500 147500 0 0 0 100 ""]
+(
+	Pin[-10000 0 8000 3000 8600 4800 "1" "1" "edge2"]
+	Pin[10000 0 8000 3000 8600 4800 "2" "2" "edge2"]
+	ElementLine [-20000 12800 20000 12800 1000]
+	ElementLine [6000 -17200 20000 -17200 1000]
+	ElementLine [6000 -12800 20000 -12800 1000]
+	ElementLine [-20000 0 -20000 12800 1000]
+	ElementLine [20000 -17200 20000 12800 1000]
+
+	)
+
+Element["hidename" "TERMBLK2_200MIL" "JA2" "unknown" 100500 147500 0 0 0 100 ""]
+(
+	Pin[-10000 0 8000 3000 8600 4800 "1" "1" "edge2"]
+	Pin[10000 0 8000 3000 8600 4800 "2" "2" "edge2"]
+	ElementLine [-20000 12800 20000 12800 1000]
+	ElementLine [6000 -17200 20000 -17200 1000]
+	ElementLine [6000 -12800 20000 -12800 1000]
+	ElementLine [-20000 0 -20000 12800 1000]
+	ElementLine [20000 -17200 20000 12800 1000]
+
+	)
+
+Element["hidename" "TERMBLK2_200MIL" "JA4" "unknown" 180500 147500 0 0 0 100 ""]
+(
+	Pin[-10000 0 8000 3000 8600 4800 "1" "1" "edge2"]
+	Pin[10000 0 8000 3000 8600 4800 "2" "2" "edge2"]
+	ElementLine [-20000 12800 20000 12800 1000]
+	ElementLine [6000 -17200 20000 -17200 1000]
+	ElementLine [6000 -12800 20000 -12800 1000]
+	ElementLine [-20000 0 -20000 12800 1000]
+	ElementLine [20000 -17200 20000 12800 1000]
+
+	)
+
+Element["hidename" "TERMBLK2_200MIL" "JA3" "unknown" 140500 147500 0 0 0 100 ""]
+(
+	Pin[-10000 0 8000 3000 8600 4800 "1" "1" "edge2"]
+	Pin[10000 0 8000 3000 8600 4800 "2" "2" "edge2"]
+	ElementLine [-20000 12800 20000 12800 1000]
+	ElementLine [-20000 -17200 -6000 -17200 1000]
+	ElementLine [-20000 -12800 -6000 -12800 1000]
+	ElementLine [-20000 -17200 -20000 12800 1000]
+	ElementLine [20000 0 20000 12800 1000]
+
+	)
+
+Element["hidename" "TERMBLK2_200MIL" "JV1" "unknown" 220500 147500 0 0 0 100 ""]
+(
+	Pin[-10000 0 8000 3000 8600 4800 "1" "1" "edge2,thermal(1X)"]
+	Pin[10000 0 8000 3000 8600 4800 "2" "2" "edge2,thermal(1X)"]
+	ElementLine [-20000 12800 20000 12800 1000]
+	ElementLine [-20000 -17200 20000 -17200 1000]
+	ElementLine [-20000 -12800 20000 -12800 1000]
+	ElementLine [-20000 -17200 -20000 12800 1000]
+	ElementLine [20000 -17200 20000 12800 1000]
+
+	)
+
+Element["" "SOD123" "D2" "unknown" 30000 54500 -3500 -11000 0 100 ""]
+(
+	Pad[6400 -600 6400 600 3600 2000 4200 "cathode" "1" "square"]
+	Pad[-6500 -600 -6500 600 3600 2000 4200 "anode" "2" "square"]
+	ElementLine [-9900 -4000 9800 -4000 1000]
+	ElementLine [-9900 4000 9800 4000 1000]
+	ElementLine [9800 -4000 9800 4000 1000]
+	ElementLine [-9900 -4000 -9900 4000 1000]
+	ElementLine [3000 -4000 3000 4000 1000]
+
+	)
+
+Element["" "RECOM-TO220" "U1" "unknown" 176500 83500 -30000 -25000 0 100 ""]
+(
+	Pin[10000 0 7874 4000 9000 4500 "3" "3" "edge2,thermal(1X)"]
+	Pin[0 0 7874 4000 9000 4500 "2" "2" "edge2,thermal(0X)"]
+	Pin[-10000 0 7874 4000 9000 4500 "1" "1" "square,edge2,thermal(0X)"]
+	ElementLine [-22835 7874 22835 7874 1000]
+	ElementLine [-22835 -25590 22835 -25590 1000]
+	ElementLine [-22835 -25590 -22835 7874 1000]
+	ElementLine [22835 -25590 22835 7874 1000]
+
+	)
+
+Element["" "cap-elec-Panasonic-FK--D8.00-H10.20-mm" "C1A" "100uF" 92500 72000 -4500 34500 0 100 ""]
+(
+	Pad[0 -4500 0 4500 4300 3000 4900 "+" "1" "square"]
+	Pad[0 21000 0 30100 4300 3000 4900 "2" "2" "square,edge2"]
+	ElementLine [8600 -7600 17300 3300 1000]
+	ElementLine [17300 3300 17300 33200 1000]
+	ElementLine [-17300 33200 17300 33200 1000]
+	ElementLine [-17300 3300 -17300 33200 1000]
+	ElementLine [-17300 3300 -8600 -7600 1000]
+	ElementLine [-8600 -7600 8600 -7600 1000]
+
+	)
+
+Element["hidename" "TERMBLK2_200MIL" "JV4" "unknown" 220500 22500 0 0 2 100 ""]
+(
+	Pin[10000 0 8000 3000 8600 4800 "1" "1" "edge2"]
+	Pin[-10000 0 8000 3000 8600 4800 "2" "2" "edge2"]
+	ElementLine [-20000 -12800 20000 -12800 1000]
+	ElementLine [-20000 17200 20000 17200 1000]
+	ElementLine [-20000 12800 20000 12800 1000]
+	ElementLine [20000 -12800 20000 17200 1000]
+	ElementLine [-20000 -12800 -20000 17200 1000]
+
+	)
+
+Element["hidename" "TERMBLK2_200MIL" "JB3" "unknown" 340500 147500 0 0 0 100 ""]
+(
+	Pin[-10000 0 8000 3000 8600 4800 "1" "1" "edge2"]
+	Pin[10000 0 8000 3000 8600 4800 "2" "2" "edge2"]
+	ElementLine [-20000 12800 20000 12800 1000]
+	ElementLine [-20000 -17200 -6000 -17200 1000]
+	ElementLine [-20000 -12800 -6000 -12800 1000]
+	ElementLine [-20000 -17200 -20000 12800 1000]
+	ElementLine [20000 0 20000 12800 1000]
+
+	)
+
+Element["hidename" "TERMBLK2_200MIL" "JG3" "unknown" 420500 22500 0 0 2 100 ""]
+(
+	Pin[10000 0 8000 3000 8600 4800 "1" "1" "edge2"]
+	Pin[-10000 0 8000 3000 8600 4800 "2" "2" "edge2"]
+	ElementLine [-20000 -12800 20000 -12800 1000]
+	ElementLine [-20000 17200 20000 17200 1000]
+	ElementLine [-20000 12800 20000 12800 1000]
+	ElementLine [20000 -12800 20000 17200 1000]
+	ElementLine [-20000 -12800 -20000 17200 1000]
+
+	)
+
+Element["hidename" "modular_6p6c_lp.fp" "JB5" "unknown" 280500 158500 -9500 9843 1 100 ""]
+(
+	Attribute("author" "Alexander Kurz")
+	Attribute("copyright" "2009 Alexander Kurz")
+	Attribute("use-license" "Unlimited")
+	Attribute("dist-license" "CC-BY-SA-3.0")
+	Attribute("height" "11.5mm")
+	Attribute("ref" "Molex document number 50-95501-001 R/A low profile pc jack 4,6,8 ckrs site through hole version")
+	Pin[-12500 -35000 7000 2000 7500 3000 "1" "1" "edge2"]
+	Pin[-7500 -25000 7000 2000 7500 3000 "2" "2" "edge2"]
+	Pin[-2500 -35000 7000 2000 7500 3000 "3" "3" "edge2"]
+	Pin[2500 -25000 7000 2000 7500 3000 "4" "4" "edge2"]
+	Pin[7500 -35000 7000 2000 7500 3000 "5" "5" "edge2"]
+	Pin[12500 -25000 7000 2000 7500 3000 "6" "6" "edge2"]
+	Pin[-20000 0 12800 2000 13000 12800 "" "" "hole,edge2"]
+	Pin[20000 0 12800 2000 13000 12800 "" "" "hole,edge2"]
+	ElementLine [-26000 -40300 26000 -40300 1000]
+	ElementLine [-26000 -40300 -26000 -17000 1000]
+	ElementLine [26000 -40300 26000 -17000 1000]
+
+	)
+
+Element["hidename" "TERMBLK2_200MIL" "JD1" "unknown" 380500 22500 0 0 2 100 ""]
+(
+	Pin[10000 0 8000 3000 8600 4800 "1" "1" "edge2"]
+	Pin[-10000 0 8000 3000 8600 4800 "2" "2" "edge2"]
+	ElementLine [-20000 -12800 20000 -12800 1000]
+	ElementLine [6000 17200 20000 17200 1000]
+	ElementLine [6000 12800 20000 12800 1000]
+	ElementLine [20000 -12800 20000 17200 1000]
+	ElementLine [-20000 -12800 -20000 0 1000]
+
+	)
+
+Element["" "cts-series219-dip3" "SW1" "unknown" 329000 85000 25500 -5000 3 100 ""]
+(
+	Pad[10000 -19550 10000 -14350 4400 1000 5000 "1" "1" "square"]
+	Pad[0 -19550 0 -14350 4400 1000 5000 "2" "2" "square"]
+	Pad[-10000 -19550 -10000 -14350 4400 1000 5000 "3" "3" "square"]
+	Pad[10000 14350 10000 19550 4400 1000 5000 "6" "6" "square,edge2"]
+	Pad[0 14350 0 19550 4400 1000 5000 "5" "5" "square,edge2"]
+	Pad[-10000 14350 -10000 19550 4400 1000 5000 "4" "4" "square,edge2"]
+	ElementLine [17900 -13200 17900 13200 1000]
+	ElementLine [-17900 -13200 -17900 13200 1000]
+	ElementLine [15000 -13200 17900 -13200 1000]
+	ElementLine [15000 13200 17900 13200 1000]
+	ElementLine [-17900 -13200 -15000 -13200 1000]
+	ElementLine [-17900 13200 -15000 13200 1000]
+
+	)
+
+Element["hidename" "TERMBLK2_200MIL" "JD4" "unknown" 260500 22500 0 0 2 100 ""]
+(
+	Pin[10000 0 8000 3000 8600 4800 "1" "1" "edge2"]
+	Pin[-10000 0 8000 3000 8600 4800 "2" "2" "edge2"]
+	ElementLine [-20000 -12800 20000 -12800 1000]
+	ElementLine [-20000 17200 -6000 17200 1000]
+	ElementLine [-20000 12800 -6000 12800 1000]
+	ElementLine [20000 -12800 20000 0 1000]
+	ElementLine [-20000 -12800 -20000 17200 1000]
+
+	)
+
+Element["" "TERMBLK2_200MIL" "J1" "unknown" 22500 85000 24500 14500 3 100 ""]
+(
+	Pin[0 -10000 8000 3000 8600 4800 "1" "1" "square,thermal(0X)"]
+	Pin[0 10000 8000 3000 8600 4800 "2" "2" "thermal(0X)"]
 	ElementLine [-12800 -20000 -12800 20000 1000]
 	ElementLine [17200 -20000 17200 20000 1000]
 	ElementLine [12800 -20000 12800 20000 1000]
@@ -823,91 +1255,213 @@ Element["" "TERMBLK2_200MIL" "JG4" "unknown" 70000 370000 0 0 3 100 ""]
 
 	)
 
-Element["" "TERMBLK2_200MIL" "JG3" "unknown" 30000 370000 0 0 3 100 ""]
+Element["hidename" "TERMBLK2_200MIL" "JD2" "unknown" 340500 22500 0 0 2 100 ""]
 (
-	Pin[0 -10000 8000 3000 8600 4800 "1" "1" "square"]
-	Pin[0 10000 8000 3000 8600 4800 "2" "2" ""]
-	ElementLine [-12800 -20000 -12800 20000 1000]
-	ElementLine [17200 -20000 17200 20000 1000]
-	ElementLine [12800 -20000 12800 20000 1000]
-	ElementLine [-12800 -20000 17200 -20000 1000]
-	ElementLine [-12800 20000 17200 20000 1000]
+	Pin[10000 0 8000 3000 8600 4800 "1" "1" "edge2"]
+	Pin[-10000 0 8000 3000 8600 4800 "2" "2" "edge2"]
+	ElementLine [-20000 -12800 20000 -12800 1000]
+	ElementLine [-20000 17200 -6000 17200 1000]
+	ElementLine [-20000 12800 -6000 12800 1000]
+	ElementLine [20000 -12800 20000 0 1000]
+	ElementLine [-20000 -12800 -20000 17200 1000]
 
 	)
 
-Element["" "TERMBLK2_200MIL" "JG2" "unknown" 540000 300000 0 0 3 100 ""]
+Element["hidename" "TERMBLK2_200MIL" "JD3" "unknown" 300500 22500 0 0 2 100 ""]
 (
-	Pin[0 -10000 8000 3000 8600 4800 "1" "1" "square"]
-	Pin[0 10000 8000 3000 8600 4800 "2" "2" ""]
-	ElementLine [-12800 -20000 -12800 20000 1000]
-	ElementLine [17200 -20000 17200 20000 1000]
-	ElementLine [12800 -20000 12800 20000 1000]
-	ElementLine [-12800 -20000 17200 -20000 1000]
-	ElementLine [-12800 20000 17200 20000 1000]
+	Pin[10000 0 8000 3000 8600 4800 "1" "1" "edge2"]
+	Pin[-10000 0 8000 3000 8600 4800 "2" "2" "edge2"]
+	ElementLine [-20000 -12800 20000 -12800 1000]
+	ElementLine [6000 17200 20000 17200 1000]
+	ElementLine [6000 12800 20000 12800 1000]
+	ElementLine [20000 -12800 20000 17200 1000]
+	ElementLine [-20000 -12800 -20000 0 1000]
 
 	)
 
-Element["" "TERMBLK2_200MIL" "JG1" "unknown" 500000 300000 0 0 3 100 ""]
+Element["" "modular_6p6c_lp.fp" "J3" "unknown" 347000 262000 -9500 9843 1 100 ""]
 (
-	Pin[0 -10000 8000 3000 8600 4800 "1" "1" "square"]
-	Pin[0 10000 8000 3000 8600 4800 "2" "2" ""]
-	ElementLine [-12800 -20000 -12800 20000 1000]
-	ElementLine [17200 -20000 17200 20000 1000]
-	ElementLine [12800 -20000 12800 20000 1000]
-	ElementLine [-12800 -20000 17200 -20000 1000]
-	ElementLine [-12800 20000 17200 20000 1000]
+	Attribute("author" "Alexander Kurz")
+	Attribute("copyright" "2009 Alexander Kurz")
+	Attribute("use-license" "Unlimited")
+	Attribute("dist-license" "CC-BY-SA-3.0")
+	Attribute("height" "11.5mm")
+	Attribute("ref" "Molex document number 50-95501-001 R/A low profile pc jack 4,6,8 ckrs site through hole version")
+	Pin[-12500 -35000 7000 2000 7500 3000 "1" "1" "edge2"]
+	Pin[-7500 -25000 7000 2000 7500 3000 "2" "2" "edge2"]
+	Pin[-2500 -35000 7000 2000 7500 3000 "3" "3" "edge2"]
+	Pin[2500 -25000 7000 2000 7500 3000 "4" "4" "edge2"]
+	Pin[7500 -35000 7000 2000 7500 3000 "5" "5" "edge2"]
+	Pin[12500 -25000 7000 2000 7500 3000 "6" "6" "edge2"]
+	Pin[-20000 0 12800 2000 13000 12800 "" "" "hole,edge2"]
+	Pin[20000 0 12800 2000 13000 12800 "" "" "hole,edge2"]
+	ElementLine [-26000 -40300 26000 -40300 1000]
+	ElementLine [-26000 -40300 -26000 -17000 1000]
+	ElementLine [26000 -40300 26000 -17000 1000]
 
 	)
 
-Element["" "TERMBLK2_200MIL" "JV4" "unknown" 450000 300000 0 0 3 100 ""]
+Element["" "cap-elec-Panasonic-FK--D8.00-H10.20-mm" "C1" "100uF" 130500 72000 -2500 34500 0 100 ""]
 (
-	Pin[0 -10000 8000 3000 8600 4800 "1" "1" "square"]
-	Pin[0 10000 8000 3000 8600 4800 "2" "2" ""]
-	ElementLine [-12800 -20000 -12800 20000 1000]
-	ElementLine [17200 -20000 17200 20000 1000]
-	ElementLine [12800 -20000 12800 20000 1000]
-	ElementLine [-12800 -20000 17200 -20000 1000]
-	ElementLine [-12800 20000 17200 20000 1000]
+	Pad[0 -4500 0 4500 4300 3000 4900 "+" "1" "square"]
+	Pad[0 21000 0 30100 4300 3000 4900 "2" "2" "square,edge2"]
+	ElementLine [8600 -7600 17300 3300 1000]
+	ElementLine [17300 3300 17300 33200 1000]
+	ElementLine [-17300 33200 17300 33200 1000]
+	ElementLine [-17300 3300 -17300 33200 1000]
+	ElementLine [-17300 3300 -8600 -7600 1000]
+	ElementLine [-8600 -7600 8600 -7600 1000]
 
 	)
 
-Element["" "TERMBLK2_200MIL" "JV3" "unknown" 410000 300000 0 0 3 100 ""]
+Element["hidename" "TERMBLK2_200MIL" "JE3" "unknown" 100500 22500 0 0 2 100 ""]
 (
-	Pin[0 -10000 8000 3000 8600 4800 "1" "1" "square"]
-	Pin[0 10000 8000 3000 8600 4800 "2" "2" ""]
-	ElementLine [-12800 -20000 -12800 20000 1000]
-	ElementLine [17200 -20000 17200 20000 1000]
-	ElementLine [12800 -20000 12800 20000 1000]
-	ElementLine [-12800 -20000 17200 -20000 1000]
-	ElementLine [-12800 20000 17200 20000 1000]
+	Pin[10000 0 8000 3000 8600 4800 "1" "1" "edge2"]
+	Pin[-10000 0 8000 3000 8600 4800 "2" "2" "edge2"]
+	ElementLine [-20000 -12800 20000 -12800 1000]
+	ElementLine [6000 17200 20000 17200 1000]
+	ElementLine [6000 12800 20000 12800 1000]
+	ElementLine [20000 -12800 20000 17200 1000]
+	ElementLine [-20000 -12800 -20000 0 1000]
 
 	)
 
-Element["" "TERMBLK2_200MIL" "JV2" "unknown" 370000 300000 0 0 3 100 ""]
+Element["" "1210" "C2" "10uF" 165500 105500 -14000 -3000 0 100 ""]
 (
-	Pin[0 -10000 8000 3000 8600 4800 "1" "1" "square"]
-	Pin[0 10000 8000 3000 8600 4800 "2" "2" ""]
-	ElementLine [-12800 -20000 -12800 20000 1000]
-	ElementLine [17200 -20000 17200 20000 1000]
-	ElementLine [12800 -20000 12800 20000 1000]
-	ElementLine [-12800 -20000 17200 -20000 1000]
-	ElementLine [-12800 20000 17200 20000 1000]
+	Pad[-2755 -5905 2755 -5905 5118 2000 5718 "1" "1" "square"]
+	Pad[-2755 5905 2755 5905 5118 2000 5718 "2" "2" "square"]
+	ElementLine [5314 -1968 5314 1968 1000]
+	ElementLine [-5314 -1968 -5314 1968 1000]
 
 	)
 
-Element["" "TERMBLK2_200MIL" "JV1" "unknown" 330000 300000 0 0 3 100 ""]
+Element["hidename" "TERMBLK2_200MIL" "JE1" "unknown" 180500 22500 0 0 2 100 ""]
 (
-	Pin[0 -10000 8000 3000 8600 4800 "1" "1" "square"]
-	Pin[0 10000 8000 3000 8600 4800 "2" "2" ""]
-	ElementLine [-12800 -20000 -12800 20000 1000]
-	ElementLine [17200 -20000 17200 20000 1000]
-	ElementLine [12800 -20000 12800 20000 1000]
-	ElementLine [-12800 -20000 17200 -20000 1000]
-	ElementLine [-12800 20000 17200 20000 1000]
+	Pin[10000 0 8000 3000 8600 4800 "1" "1" "edge2"]
+	Pin[-10000 0 8000 3000 8600 4800 "2" "2" "edge2"]
+	ElementLine [-20000 -12800 20000 -12800 1000]
+	ElementLine [6000 17200 20000 17200 1000]
+	ElementLine [6000 12800 20000 12800 1000]
+	ElementLine [20000 -12800 20000 17200 1000]
+	ElementLine [-20000 -12800 -20000 0 1000]
 
 	)
 
-Element["" "tantalum_a" "C4" "22uF" 440000 20000 10600 0 3 100 ""]
+Element["" "0805" "C8" "1uF" 256500 196500 -3150 -3150 0 100 ""]
+(
+	Pad[-3543 -393 -3543 393 5118 2000 5718 "1" "1" "square"]
+	Pad[3543 -393 3543 393 5118 2000 5718 "2" "2" "square"]
+	ElementLine [-393 -2755 393 -2755 1000]
+	ElementLine [-393 2755 393 2755 1000]
+
+	)
+
+Element["hidename" "TERMBLK2_200MIL" "JG2" "unknown" 420500 147500 0 0 0 100 ""]
+(
+	Pin[-10000 0 8000 3000 8600 4800 "1" "1" "edge2"]
+	Pin[10000 0 8000 3000 8600 4800 "2" "2" "edge2"]
+	ElementLine [-20000 12800 20000 12800 1000]
+	ElementLine [-20000 -17200 20000 -17200 1000]
+	ElementLine [-20000 -12800 20000 -12800 1000]
+	ElementLine [-20000 -17200 -20000 12800 1000]
+	ElementLine [20000 -17200 20000 12800 1000]
+
+	)
+
+Element["" "0805" "C7" "1uF" 226500 196500 -3150 -3150 0 100 ""]
+(
+	Pad[-3543 -393 -3543 393 5118 2000 5718 "1" "1" "square"]
+	Pad[3543 -393 3543 393 5118 2000 5718 "2" "2" "square"]
+	ElementLine [-393 -2755 393 -2755 1000]
+	ElementLine [-393 2755 393 2755 1000]
+
+	)
+
+Element["hidename" "modular_6p6c_lp.fp" "JA5" "unknown" 80500 158500 -9500 9843 1 100 ""]
+(
+	Attribute("author" "Alexander Kurz")
+	Attribute("copyright" "2009 Alexander Kurz")
+	Attribute("use-license" "Unlimited")
+	Attribute("dist-license" "CC-BY-SA-3.0")
+	Attribute("height" "11.5mm")
+	Attribute("ref" "Molex document number 50-95501-001 R/A low profile pc jack 4,6,8 ckrs site through hole version")
+	Pin[-12500 -35000 7000 2000 7500 3000 "1" "1" "edge2,thermal(1S)"]
+	Pin[-7500 -25000 7000 2000 7500 3000 "2" "2" "edge2"]
+	Pin[-2500 -35000 7000 2000 7500 3000 "3" "3" "edge2"]
+	Pin[2500 -25000 7000 2000 7500 3000 "4" "4" "edge2"]
+	Pin[7500 -35000 7000 2000 7500 3000 "5" "5" "edge2"]
+	Pin[12500 -25000 7000 2000 7500 3000 "6" "6" "edge2"]
+	Pin[-20000 0 12800 2000 13000 12800 "" "" "hole,edge2"]
+	Pin[20000 0 12800 2000 13000 12800 "" "" "hole,edge2"]
+	ElementLine [-26000 -40300 26000 -40300 1000]
+	ElementLine [-26000 -40300 -26000 -17000 1000]
+	ElementLine [26000 -40300 26000 -17000 1000]
+
+	)
+
+Element["hidename" "modular_6p6c_lp.fp" "JB6" "unknown" 360500 158500 -9500 9843 1 100 ""]
+(
+	Attribute("author" "Alexander Kurz")
+	Attribute("copyright" "2009 Alexander Kurz")
+	Attribute("use-license" "Unlimited")
+	Attribute("dist-license" "CC-BY-SA-3.0")
+	Attribute("height" "11.5mm")
+	Attribute("ref" "Molex document number 50-95501-001 R/A low profile pc jack 4,6,8 ckrs site through hole version")
+	Pin[-12500 -35000 7000 2000 7500 3000 "1" "1" "edge2"]
+	Pin[-7500 -25000 7000 2000 7500 3000 "2" "2" "edge2"]
+	Pin[-2500 -35000 7000 2000 7500 3000 "3" "3" "edge2"]
+	Pin[2500 -25000 7000 2000 7500 3000 "4" "4" "edge2"]
+	Pin[7500 -35000 7000 2000 7500 3000 "5" "5" "edge2"]
+	Pin[12500 -25000 7000 2000 7500 3000 "6" "6" "edge2"]
+	Pin[-20000 0 12800 2000 13000 12800 "" "" "hole,edge2"]
+	Pin[20000 0 12800 2000 13000 12800 "" "" "hole,edge2"]
+	ElementLine [-26000 -40300 26000 -40300 1000]
+	ElementLine [-26000 -40300 -26000 -17000 1000]
+	ElementLine [26000 -40300 26000 -17000 1000]
+
+	)
+
+Element["hidename" "STANDOFF_HEX_n4" "H2" "unknown" 468000 85000 0 10000 0 100 ""]
+(
+	Pin[0 0 29368 2000 29368 12850 "1" "1" ""]
+
+	)
+
+Element["hidename" "modular_6p6c_lp.fp" "JA6" "unknown" 160500 158500 -9500 9843 1 100 ""]
+(
+	Attribute("author" "Alexander Kurz")
+	Attribute("copyright" "2009 Alexander Kurz")
+	Attribute("use-license" "Unlimited")
+	Attribute("dist-license" "CC-BY-SA-3.0")
+	Attribute("height" "11.5mm")
+	Attribute("ref" "Molex document number 50-95501-001 R/A low profile pc jack 4,6,8 ckrs site through hole version")
+	Pin[-12500 -35000 7000 2000 7500 3000 "1" "1" "edge2,thermal(1S)"]
+	Pin[-7500 -25000 7000 2000 7500 3000 "2" "2" "edge2"]
+	Pin[-2500 -35000 7000 2000 7500 3000 "3" "3" "edge2"]
+	Pin[2500 -25000 7000 2000 7500 3000 "4" "4" "edge2"]
+	Pin[7500 -35000 7000 2000 7500 3000 "5" "5" "edge2"]
+	Pin[12500 -25000 7000 2000 7500 3000 "6" "6" "edge2"]
+	Pin[-20000 0 12800 2000 13000 12800 "" "" "hole,edge2"]
+	Pin[20000 0 12800 2000 13000 12800 "" "" "hole,edge2"]
+	ElementLine [-26000 -40300 26000 -40300 1000]
+	ElementLine [-26000 -40300 -26000 -17000 1000]
+	ElementLine [26000 -40300 26000 -17000 1000]
+
+	)
+
+Element["hidename" "TERMBLK2_200MIL" "JG1" "unknown" 20500 147500 0 0 0 100 ""]
+(
+	Pin[-10000 0 8000 3000 8600 4800 "1" "1" "edge2,thermal(0X)"]
+	Pin[10000 0 8000 3000 8600 4800 "2" "2" "edge2,thermal(0X)"]
+	ElementLine [-20000 12800 20000 12800 1000]
+	ElementLine [-20000 -17200 20000 -17200 1000]
+	ElementLine [-20000 -12800 20000 -12800 1000]
+	ElementLine [-20000 -17200 -20000 12800 1000]
+	ElementLine [20000 -17200 20000 12800 1000]
+
+	)
+
+Element["" "tantalum_a" "C6" "22uF" 206500 196500 10600 0 3 100 ""]
 (
 	Pad[-5000 -1800 -5000 1800 4900 2000 5500 "1" "1" "square"]
 	Pad[5000 -1800 5000 1800 4900 2000 5500 "2" "2" "square"]
@@ -920,7 +1474,7 @@ Element["" "tantalum_a" "C4" "22uF" 440000 20000 10600 0 3 100 ""]
 
 	)
 
-Element["" "0805" "C6" "1uF" 220000 290000 -3150 -3150 0 100 ""]
+Element["" "0805" "R3" "10k" 299500 85000 -14000 -3000 0 100 ""]
 (
 	Pad[-3543 -393 -3543 393 5118 2000 5718 "1" "1" "square"]
 	Pad[3543 -393 3543 393 5118 2000 5718 "2" "2" "square"]
@@ -929,7 +1483,57 @@ Element["" "0805" "C6" "1uF" 220000 290000 -3150 -3150 0 100 ""]
 
 	)
 
-Element["" "0805" "C5" "1uF" 190000 290000 -3150 -3150 0 100 ""]
+Element["hidename" "modular_6p6c_lp.fp" "JD5" "unknown" 360500 11500 9500 -9843 3 100 ""]
+(
+	Attribute("author" "Alexander Kurz")
+	Attribute("copyright" "2009 Alexander Kurz")
+	Attribute("use-license" "Unlimited")
+	Attribute("dist-license" "CC-BY-SA-3.0")
+	Attribute("height" "11.5mm")
+	Attribute("ref" "Molex document number 50-95501-001 R/A low profile pc jack 4,6,8 ckrs site through hole version")
+	Pin[12500 35000 7000 2000 7500 3000 "1" "1" "edge2"]
+	Pin[7500 25000 7000 2000 7500 3000 "2" "2" "edge2"]
+	Pin[2500 35000 7000 2000 7500 3000 "3" "3" "edge2"]
+	Pin[-2500 25000 7000 2000 7500 3000 "4" "4" "edge2"]
+	Pin[-7500 35000 7000 2000 7500 3000 "5" "5" "edge2"]
+	Pin[-12500 25000 7000 2000 7500 3000 "6" "6" "edge2"]
+	Pin[20000 0 12800 2000 13000 12800 "" "" "hole,edge2"]
+	Pin[-20000 0 12800 2000 13000 12800 "" "" "hole,edge2"]
+	ElementLine [-26000 40300 26000 40300 1000]
+	ElementLine [26000 17000 26000 40300 1000]
+	ElementLine [-26000 17000 -26000 40300 1000]
+
+	)
+
+Element["hidename" "modular_6p6c_lp.fp" "JD6" "unknown" 280500 11500 9500 -9843 3 100 ""]
+(
+	Attribute("author" "Alexander Kurz")
+	Attribute("copyright" "2009 Alexander Kurz")
+	Attribute("use-license" "Unlimited")
+	Attribute("dist-license" "CC-BY-SA-3.0")
+	Attribute("height" "11.5mm")
+	Attribute("ref" "Molex document number 50-95501-001 R/A low profile pc jack 4,6,8 ckrs site through hole version")
+	Pin[12500 35000 7000 2000 7500 3000 "1" "1" "edge2"]
+	Pin[7500 25000 7000 2000 7500 3000 "2" "2" "edge2"]
+	Pin[2500 35000 7000 2000 7500 3000 "3" "3" "edge2"]
+	Pin[-2500 25000 7000 2000 7500 3000 "4" "4" "edge2"]
+	Pin[-7500 35000 7000 2000 7500 3000 "5" "5" "edge2"]
+	Pin[-12500 25000 7000 2000 7500 3000 "6" "6" "edge2"]
+	Pin[20000 0 12800 2000 13000 12800 "" "" "hole,edge2"]
+	Pin[-20000 0 12800 2000 13000 12800 "" "" "hole,edge2"]
+	ElementLine [-26000 40300 26000 40300 1000]
+	ElementLine [26000 17000 26000 40300 1000]
+	ElementLine [-26000 17000 -26000 40300 1000]
+
+	)
+
+Element["hidename" "STANDOFF_HEX_n4" "H1" "unknown" 57000 85000 0 10000 0 100 ""]
+(
+	Pin[0 0 29368 2000 29368 12850 "1" "1" ""]
+
+	)
+
+Element["" "0805" "R4" "10k" 299500 74000 -14000 -3000 0 100 ""]
 (
 	Pad[-3543 -393 -3543 393 5118 2000 5718 "1" "1" "square"]
 	Pad[3543 -393 3543 393 5118 2000 5718 "2" "2" "square"]
@@ -938,95 +1542,74 @@ Element["" "0805" "C5" "1uF" 190000 290000 -3150 -3150 0 100 ""]
 
 	)
 
-Element["" "tantalum_a" "C8" "22uF" 170000 290000 10600 0 3 100 ""]
+Element["" "TSSOP56-8mil" "U2" "unknown" 255000 85000 -3500 20500 0 100 ""]
 (
-	Pad[-5000 -1800 -5000 1800 4900 2000 5500 "1" "1" "square"]
-	Pad[5000 -1800 5000 1800 4900 2000 5500 "2" "2" "square"]
-	ElementLine [-9600 -4300 -9600 4300 2000]
-	ElementLine [-9600 4300 -7200 5500 1000]
-	ElementLine [-7200 5500 8600 5500 1000]
-	ElementLine [8600 5500 8600 -5500 1000]
-	ElementLine [8600 -5500 -7200 -5500 1000]
-	ElementLine [-7200 -5500 -9600 -4300 1000]
+	Pad[-26574 12598 -26574 17322 1160 1000 2181 "SDA" "1" "square,edge2"]
+	Pad[-24606 12598 -24606 17322 1160 1000 2181 "SCL" "2" "square,edge2"]
+	Pad[-22637 12598 -22637 17322 1160 1000 2181 "IO0_0" "3" "square,edge2"]
+	Pad[-20669 12598 -20669 17322 1160 1000 2181 "IO0_1" "4" "square,edge2"]
+	Pad[-18700 12598 -18700 17322 1160 1000 2181 "IO0_2" "5" "square,edge2"]
+	Pad[-16732 12598 -16732 17322 1160 1000 2181 "VSS" "6" "square,edge2"]
+	Pad[-14763 12598 -14763 17322 1160 1000 2181 "IO0_3" "7" "square,edge2"]
+	Pad[-12795 12598 -12795 17322 1160 1000 2181 "IO0_4" "8" "square,edge2"]
+	Pad[-10826 12598 -10826 17322 1160 1000 2181 "IO0_5" "9" "square,edge2"]
+	Pad[-8858 12598 -8858 17322 1160 1000 2181 "IO0_6" "10" "square,edge2"]
+	Pad[-6889 12598 -6889 17322 1160 1000 2181 "VSS" "11" "square,edge2"]
+	Pad[-4921 12598 -4921 17322 1160 1000 2181 "IO0_7" "12" "square,edge2"]
+	Pad[-2952 12598 -2952 17322 1160 1000 2181 "IO1_0" "13" "square,edge2"]
+	Pad[-984 12598 -984 17322 1160 1000 2181 "IO1_1" "14" "square,edge2"]
+	Pad[984 12598 984 17322 1160 1000 2181 "IO1_2" "15" "square,edge2"]
+	Pad[2952 12598 2952 17322 1160 1000 2181 "IO1_3" "16" "square,edge2"]
+	Pad[4921 12598 4921 17322 1160 1000 2181 "IO1_4" "17" "square,edge2"]
+	Pad[6889 12598 6889 17322 1160 1000 2181 "VDD" "18" "square,edge2"]
+	Pad[8858 12598 8858 17322 1160 1000 2181 "IO1_5" "19" "square,edge2"]
+	Pad[10826 12598 10826 17322 1160 1000 2181 "IO1_6" "20" "square,edge2"]
+	Pad[12795 12598 12795 17322 1160 1000 2181 "IO1_7" "21" "square,edge2"]
+	Pad[14763 12598 14763 17322 1160 1000 2181 "IO2_0" "22" "square,edge2"]
+	Pad[16732 12598 16732 17322 1160 1000 2181 "VSS" "23" "square,edge2"]
+	Pad[18700 12598 18700 17322 1160 1000 2181 "IO2_1" "24" "square,edge2"]
+	Pad[20669 12598 20669 17322 1160 1000 2181 "IO2_2" "25" "square,edge2"]
+	Pad[22637 12598 22637 17322 1160 1000 2181 "IO2_3" "26" "square,edge2"]
+	Pad[24606 12598 24606 17322 1160 1000 2181 "A0" "27" "square,edge2"]
+	Pad[26574 12598 26574 17322 1160 1000 2181 "A1" "28" "square,edge2"]
+	Pad[26574 -17322 26574 -12598 1160 1000 2181 "A2" "29" "square"]
+	Pad[24606 -17322 24606 -12598 1160 1000 2181 "_OE_" "30" "square"]
+	Pad[22637 -17322 22637 -12598 1160 1000 2181 "IO2_4" "31" "square"]
+	Pad[20669 -17322 20669 -12598 1160 1000 2181 "IO2_5" "32" "square"]
+	Pad[18700 -17322 18700 -12598 1160 1000 2181 "IO2_6" "33" "square"]
+	Pad[16732 -17322 16732 -12598 1160 1000 2181 "VSS" "34" "square"]
+	Pad[14763 -17322 14763 -12598 1160 1000 2181 "IO2_7" "35" "square"]
+	Pad[12795 -17322 12795 -12598 1160 1000 2181 "IO3_0" "36" "square"]
+	Pad[10826 -17322 10826 -12598 1160 1000 2181 "IO3_1" "37" "square"]
+	Pad[8858 -17322 8858 -12598 1160 1000 2181 "IO3_2" "38" "square"]
+	Pad[6889 -17322 6889 -12598 1160 1000 2181 "VSS" "39" "square"]
+	Pad[4921 -17322 4921 -12598 1160 1000 2181 "IO3_3" "40" "square"]
+	Pad[2952 -17322 2952 -12598 1160 1000 2181 "IO3_4" "41" "square"]
+	Pad[984 -17322 984 -12598 1160 1000 2181 "IO3_5" "42" "square"]
+	Pad[-984 -17322 -984 -12598 1160 1000 2181 "IO3_6" "43" "square"]
+	Pad[-2952 -17322 -2952 -12598 1160 1000 2181 "IO3_7" "44" "square"]
+	Pad[-4921 -17322 -4921 -12598 1160 1000 2181 "IO4_0" "45" "square"]
+	Pad[-6889 -17322 -6889 -12598 1160 1000 2181 "VDD" "46" "square"]
+	Pad[-8858 -17322 -8858 -12598 1160 1000 2181 "IO4_1" "47" "square"]
+	Pad[-10826 -17322 -10826 -12598 1160 1000 2181 "IO4_2" "48" "square"]
+	Pad[-12795 -17322 -12795 -12598 1160 1000 2181 "IO4_3" "49" "square"]
+	Pad[-14763 -17322 -14763 -12598 1160 1000 2181 "IO4_4" "50" "square"]
+	Pad[-16732 -17322 -16732 -12598 1160 1000 2181 "VSS" "51" "square"]
+	Pad[-18700 -17322 -18700 -12598 1160 1000 2181 "IO4_5" "52" "square"]
+	Pad[-20669 -17322 -20669 -12598 1160 1000 2181 "IO4_6" "53" "square"]
+	Pad[-22637 -17322 -22637 -12598 1160 1000 2181 "IO4_7" "54" "square"]
+	Pad[-24606 -17322 -24606 -12598 1160 1000 2181 "_INT_" "55" "square"]
+	Pad[-26574 -17322 -26574 -12598 1160 1000 2181 "_RESET_" "56" "square"]
+	ElementLine [-28165 -18913 -28165 -2500 1000]
+	ElementLine [-28165 2500 -28165 18913 1000]
+	ElementLine [-28165 -18913 28165 -18913 1000]
+	ElementLine [28165 -18913 28165 18913 1000]
+	ElementLine [-28165 18913 28165 18913 1000]
+	ElementArc [-28165 0 2500 2500 90 180 1000]
 
 	)
 
-Element["" "tantalum_a" "C7" "22uF" 140000 290000 10600 0 3 100 ""]
-(
-	Pad[-5000 -1800 -5000 1800 4900 2000 5500 "1" "1" "square"]
-	Pad[5000 -1800 5000 1800 4900 2000 5500 "2" "2" "square"]
-	ElementLine [-9600 -4300 -9600 4300 2000]
-	ElementLine [-9600 4300 -7200 5500 1000]
-	ElementLine [-7200 5500 8600 5500 1000]
-	ElementLine [8600 5500 8600 -5500 1000]
-	ElementLine [8600 -5500 -7200 -5500 1000]
-	ElementLine [-7200 -5500 -9600 -4300 1000]
-
-	)
-
-Element["" "1210" "C2" "10uF" 110000 290000 -3150 -3150 0 100 ""]
-(
-	Pad[-5905 -2755 -5905 2755 5118 2000 5718 "1" "1" "square"]
-	Pad[5905 -2755 5905 2755 5118 2000 5718 "2" "2" "square"]
-	ElementLine [-1968 -5314 1968 -5314 1000]
-	ElementLine [-1968 5314 1968 5314 1000]
-
-	)
-
-Element["" "RECOM-TO220" "U1" "unknown" 400000 20000 0 0 3 100 ""]
-(
-	Pin[-10000 0 7874 4000 9000 4500 "3" "3" "edge2"]
-	Pin[0 0 7874 4000 9000 4500 "2" "2" "edge2"]
-	Pin[10000 0 7874 4000 9000 4500 "1" "1" "square,edge2"]
-	ElementLine [22835 -7874 -22835 -7874 1000]
-	ElementLine [22835 25590 -22835 25590 1000]
-	ElementLine [22835 -7874 22835 25590 1000]
-	ElementLine [-22835 -7874 -22835 25590 1000]
-
-	)
-
-Element["" "cts-series219-dip3" "SW1" "unknown" 540000 230000 -2000 -6000 0 100 ""]
-(
-	Pad[-19550 -10000 -14350 -10000 4400 1000 5000 "1" "1" "square"]
-	Pad[-19550 0 -14350 0 4400 1000 5000 "2" "2" "square"]
-	Pad[-19550 10000 -14350 10000 4400 1000 5000 "3" "3" "square"]
-	Pad[14350 -10000 19550 -10000 4400 1000 5000 "6" "6" "square,edge2"]
-	Pad[14350 0 19550 0 4400 1000 5000 "5" "5" "square,edge2"]
-	Pad[14350 10000 19550 10000 4400 1000 5000 "4" "4" "square,edge2"]
-	ElementLine [-13200 -17900 13200 -17900 1000]
-	ElementLine [-13200 17900 13200 17900 1000]
-	ElementLine [-13200 -17900 -13200 -15000 1000]
-	ElementLine [13200 -17900 13200 -15000 1000]
-	ElementLine [-13200 17900 -13200 15000 1000]
-	ElementLine [13200 17900 13200 15000 1000]
-
-	)
-
-Element["hidename" "STANDOFF_HEX_n4" "H4" "unknown" 350000 30000 0 10000 0 100 ""]
-(
-	Pin[0 0 29368 0 29368 12850 "1" "1" ""]
-
-	)
-
-Element["hidename" "STANDOFF_HEX_n4" "H3" "unknown" 310000 30000 0 10000 0 100 ""]
-(
-	Pin[0 0 29368 0 29368 12850 "1" "1" ""]
-
-	)
-
-Element["hidename" "STANDOFF_HEX_n4" "H2" "unknown" 270000 30000 0 10000 0 100 ""]
-(
-	Pin[0 0 29368 0 29368 12850 "1" "1" ""]
-
-	)
-
-Element["hidename" "STANDOFF_HEX_n4" "H1" "unknown" 230000 30000 0 10000 0 100 ""]
-(
-	Pin[0 0 29368 0 29368 12850 "1" "1" ""]
-
-	)
-
-Element["" "0805" "C3" "1uF" 200000 20000 -3150 -3150 0 100 ""]
+Element["" "0805" "R2" "10k" 299500 96000 -14000 -3000 0 100 ""]
 (
 	Pad[-3543 -393 -3543 393 5118 2000 5718 "1" "1" "square"]
 	Pad[3543 -393 3543 393 5118 2000 5718 "2" "2" "square"]
@@ -1035,396 +1618,7 @@ Element["" "0805" "C3" "1uF" 200000 20000 -3150 -3150 0 100 ""]
 
 	)
 
-Element["" "1206" "D1" "unknown" 170000 20000 -3150 -3150 0 100 ""]
-(
-	Pad[-5905 -1181 -5905 1181 5118 2000 5718 "CATHODE" "1" "square"]
-	Pad[5905 -1181 5905 1181 5118 2000 5718 "ANODE" "2" "square"]
-	ElementLine [-2362 -3740 2362 -3740 1000]
-	ElementLine [-2362 3740 2362 3740 1000]
-
-	)
-
-Element["" "0805" "R4" "10k" 570000 150000 -3150 -3150 0 100 ""]
-(
-	Pad[-3543 -393 -3543 393 5118 2000 5718 "1" "1" "square"]
-	Pad[3543 -393 3543 393 5118 2000 5718 "2" "2" "square"]
-	ElementLine [-393 -2755 393 -2755 1000]
-	ElementLine [-393 2755 393 2755 1000]
-
-	)
-
-Element["" "0805" "R3" "10k" 550000 150000 -3150 -3150 0 100 ""]
-(
-	Pad[-3543 -393 -3543 393 5118 2000 5718 "1" "1" "square"]
-	Pad[3543 -393 3543 393 5118 2000 5718 "2" "2" "square"]
-	ElementLine [-393 -2755 393 -2755 1000]
-	ElementLine [-393 2755 393 2755 1000]
-
-	)
-
-Element["" "0805" "R2" "10k" 530000 150000 -3150 -3150 0 100 ""]
-(
-	Pad[-3543 -393 -3543 393 5118 2000 5718 "1" "1" "square"]
-	Pad[3543 -393 3543 393 5118 2000 5718 "2" "2" "square"]
-	ElementLine [-393 -2755 393 -2755 1000]
-	ElementLine [-393 2755 393 2755 1000]
-
-	)
-
-Element["" "TERMBLK2_200MIL" "JB3" "unknown" 365500 460500 0 0 0 100 ""]
-(
-	Pin[-10000 0 8000 3000 8600 4800 "1" "1" "square,edge2"]
-	Pin[10000 0 8000 3000 8600 4800 "2" "2" "edge2"]
-	ElementLine [-20000 12800 20000 12800 1000]
-	ElementLine [-20000 -17200 20000 -17200 1000]
-	ElementLine [-20000 -12800 20000 -12800 1000]
-	ElementLine [-20000 -17200 -20000 12800 1000]
-	ElementLine [20000 -17200 20000 12800 1000]
-
-	)
-
-Element["" "TERMBLK2_200MIL" "JB2" "unknown" 325500 460500 0 0 0 100 ""]
-(
-	Pin[-10000 0 8000 3000 8600 4800 "1" "1" "square,edge2"]
-	Pin[10000 0 8000 3000 8600 4800 "2" "2" "edge2"]
-	ElementLine [-20000 12800 20000 12800 1000]
-	ElementLine [-20000 -17200 20000 -17200 1000]
-	ElementLine [-20000 -12800 20000 -12800 1000]
-	ElementLine [-20000 -17200 -20000 12800 1000]
-	ElementLine [20000 -17200 20000 12800 1000]
-
-	)
-
-Element["" "TERMBLK2_200MIL" "JB1" "unknown" 285500 460500 0 0 0 100 ""]
-(
-	Pin[-10000 0 8000 3000 8600 4800 "1" "1" "square,edge2"]
-	Pin[10000 0 8000 3000 8600 4800 "2" "2" "edge2"]
-	ElementLine [-20000 12800 20000 12800 1000]
-	ElementLine [-20000 -17200 20000 -17200 1000]
-	ElementLine [-20000 -12800 20000 -12800 1000]
-	ElementLine [-20000 -17200 -20000 12800 1000]
-	ElementLine [20000 -17200 20000 12800 1000]
-
-	)
-
-Element["" "TERMBLK2_200MIL" "JB4" "unknown" 405500 460500 0 0 0 100 ""]
-(
-	Pin[-10000 0 8000 3000 8600 4800 "1" "1" "square,edge2"]
-	Pin[10000 0 8000 3000 8600 4800 "2" "2" "edge2"]
-	ElementLine [-20000 12800 20000 12800 1000]
-	ElementLine [-20000 -17200 20000 -17200 1000]
-	ElementLine [-20000 -12800 20000 -12800 1000]
-	ElementLine [-20000 -17200 -20000 12800 1000]
-	ElementLine [20000 -17200 20000 12800 1000]
-
-	)
-
-Element["" "TERMBLK2_200MIL" "JE1" "unknown" 190000 160000 0 0 3 100 ""]
-(
-	Pin[0 -10000 8000 3000 8600 4800 "1" "1" "square"]
-	Pin[0 10000 8000 3000 8600 4800 "2" "2" ""]
-	ElementLine [-12800 -20000 -12800 20000 1000]
-	ElementLine [17200 -20000 17200 20000 1000]
-	ElementLine [12800 -20000 12800 20000 1000]
-	ElementLine [-12800 -20000 17200 -20000 1000]
-	ElementLine [-12800 20000 17200 20000 1000]
-
-	)
-
-Element["" "TERMBLK2_200MIL" "JE2" "unknown" 150000 160000 0 0 3 100 ""]
-(
-	Pin[0 -10000 8000 3000 8600 4800 "1" "1" "square"]
-	Pin[0 10000 8000 3000 8600 4800 "2" "2" ""]
-	ElementLine [-12800 -20000 -12800 20000 1000]
-	ElementLine [17200 -20000 17200 20000 1000]
-	ElementLine [12800 -20000 12800 20000 1000]
-	ElementLine [-12800 -20000 17200 -20000 1000]
-	ElementLine [-12800 20000 17200 20000 1000]
-
-	)
-
-Element["" "TERMBLK2_200MIL" "JE3" "unknown" 110000 160000 0 0 3 100 ""]
-(
-	Pin[0 -10000 8000 3000 8600 4800 "1" "1" "square"]
-	Pin[0 10000 8000 3000 8600 4800 "2" "2" ""]
-	ElementLine [-12800 -20000 -12800 20000 1000]
-	ElementLine [17200 -20000 17200 20000 1000]
-	ElementLine [12800 -20000 12800 20000 1000]
-	ElementLine [-12800 -20000 17200 -20000 1000]
-	ElementLine [-12800 20000 17200 20000 1000]
-
-	)
-
-Element["" "TERMBLK2_200MIL" "JE4" "unknown" 70000 160000 0 0 3 100 ""]
-(
-	Pin[0 -10000 8000 3000 8600 4800 "1" "1" "square"]
-	Pin[0 10000 8000 3000 8600 4800 "2" "2" ""]
-	ElementLine [-12800 -20000 -12800 20000 1000]
-	ElementLine [17200 -20000 17200 20000 1000]
-	ElementLine [12800 -20000 12800 20000 1000]
-	ElementLine [-12800 -20000 17200 -20000 1000]
-	ElementLine [-12800 20000 17200 20000 1000]
-
-	)
-
-Element["" "TERMBLK2_200MIL" "JD1" "unknown" 30000 160000 0 0 3 100 ""]
-(
-	Pin[0 -10000 8000 3000 8600 4800 "1" "1" "square"]
-	Pin[0 10000 8000 3000 8600 4800 "2" "2" ""]
-	ElementLine [-12800 -20000 -12800 20000 1000]
-	ElementLine [17200 -20000 17200 20000 1000]
-	ElementLine [12800 -20000 12800 20000 1000]
-	ElementLine [-12800 -20000 17200 -20000 1000]
-	ElementLine [-12800 20000 17200 20000 1000]
-
-	)
-
-Element["" "TERMBLK2_200MIL" "JD2" "unknown" 560000 100000 0 0 3 100 ""]
-(
-	Pin[0 -10000 8000 3000 8600 4800 "1" "1" "square"]
-	Pin[0 10000 8000 3000 8600 4800 "2" "2" ""]
-	ElementLine [-12800 -20000 -12800 20000 1000]
-	ElementLine [17200 -20000 17200 20000 1000]
-	ElementLine [12800 -20000 12800 20000 1000]
-	ElementLine [-12800 -20000 17200 -20000 1000]
-	ElementLine [-12800 20000 17200 20000 1000]
-
-	)
-
-Element["" "TERMBLK2_200MIL" "JD3" "unknown" 520000 100000 0 0 3 100 ""]
-(
-	Pin[0 -10000 8000 3000 8600 4800 "1" "1" "square"]
-	Pin[0 10000 8000 3000 8600 4800 "2" "2" ""]
-	ElementLine [-12800 -20000 -12800 20000 1000]
-	ElementLine [17200 -20000 17200 20000 1000]
-	ElementLine [12800 -20000 12800 20000 1000]
-	ElementLine [-12800 -20000 17200 -20000 1000]
-	ElementLine [-12800 20000 17200 20000 1000]
-
-	)
-
-Element["" "TERMBLK2_200MIL" "JD4" "unknown" 480000 100000 0 0 3 100 ""]
-(
-	Pin[0 -10000 8000 3000 8600 4800 "1" "1" "square"]
-	Pin[0 10000 8000 3000 8600 4800 "2" "2" ""]
-	ElementLine [-12800 -20000 -12800 20000 1000]
-	ElementLine [17200 -20000 17200 20000 1000]
-	ElementLine [12800 -20000 12800 20000 1000]
-	ElementLine [-12800 -20000 17200 -20000 1000]
-	ElementLine [-12800 20000 17200 20000 1000]
-
-	)
-
-Element["" "TERMBLK2_200MIL" "JC1" "unknown" 440000 100000 0 0 3 100 ""]
-(
-	Pin[0 -10000 8000 3000 8600 4800 "1" "1" "square"]
-	Pin[0 10000 8000 3000 8600 4800 "2" "2" ""]
-	ElementLine [-12800 -20000 -12800 20000 1000]
-	ElementLine [17200 -20000 17200 20000 1000]
-	ElementLine [12800 -20000 12800 20000 1000]
-	ElementLine [-12800 -20000 17200 -20000 1000]
-	ElementLine [-12800 20000 17200 20000 1000]
-
-	)
-
-Element["" "TERMBLK2_200MIL" "JC2" "unknown" 400000 100000 0 0 3 100 ""]
-(
-	Pin[0 -10000 8000 3000 8600 4800 "1" "1" "square"]
-	Pin[0 10000 8000 3000 8600 4800 "2" "2" ""]
-	ElementLine [-12800 -20000 -12800 20000 1000]
-	ElementLine [17200 -20000 17200 20000 1000]
-	ElementLine [12800 -20000 12800 20000 1000]
-	ElementLine [-12800 -20000 17200 -20000 1000]
-	ElementLine [-12800 20000 17200 20000 1000]
-
-	)
-
-Element["" "TERMBLK2_200MIL" "JC3" "unknown" 360000 100000 0 0 3 100 ""]
-(
-	Pin[0 -10000 8000 3000 8600 4800 "1" "1" "square"]
-	Pin[0 10000 8000 3000 8600 4800 "2" "2" ""]
-	ElementLine [-12800 -20000 -12800 20000 1000]
-	ElementLine [17200 -20000 17200 20000 1000]
-	ElementLine [12800 -20000 12800 20000 1000]
-	ElementLine [-12800 -20000 17200 -20000 1000]
-	ElementLine [-12800 20000 17200 20000 1000]
-
-	)
-
-Element["" "TERMBLK2_200MIL" "JC4" "unknown" 320000 100000 0 0 3 100 ""]
-(
-	Pin[0 -10000 8000 3000 8600 4800 "1" "1" "square"]
-	Pin[0 10000 8000 3000 8600 4800 "2" "2" ""]
-	ElementLine [-12800 -20000 -12800 20000 1000]
-	ElementLine [17200 -20000 17200 20000 1000]
-	ElementLine [12800 -20000 12800 20000 1000]
-	ElementLine [-12800 -20000 17200 -20000 1000]
-	ElementLine [-12800 20000 17200 20000 1000]
-
-	)
-
-Element["" "TSSOP56-8mil" "U2" "unknown" 492500 170000 -2000 -6000 0 100 ""]
-(
-	Pad[-17322 -26574 -12598 -26574 1160 1000 2181 "SDA" "1" "square"]
-	Pad[-17322 -24606 -12598 -24606 1160 1000 2181 "SCL" "2" "square"]
-	Pad[-17322 -22637 -12598 -22637 1160 1000 2181 "IO0_0" "3" "square"]
-	Pad[-17322 -20669 -12598 -20669 1160 1000 2181 "IO0_1" "4" "square"]
-	Pad[-17322 -18700 -12598 -18700 1160 1000 2181 "IO0_2" "5" "square"]
-	Pad[-17322 -16732 -12598 -16732 1160 1000 2181 "VSS" "6" "square"]
-	Pad[-17322 -14763 -12598 -14763 1160 1000 2181 "IO0_3" "7" "square"]
-	Pad[-17322 -12795 -12598 -12795 1160 1000 2181 "IO0_4" "8" "square"]
-	Pad[-17322 -10826 -12598 -10826 1160 1000 2181 "IO0_5" "9" "square"]
-	Pad[-17322 -8858 -12598 -8858 1160 1000 2181 "IO0_6" "10" "square"]
-	Pad[-17322 -6889 -12598 -6889 1160 1000 2181 "VSS" "11" "square"]
-	Pad[-17322 -4921 -12598 -4921 1160 1000 2181 "IO0_7" "12" "square"]
-	Pad[-17322 -2952 -12598 -2952 1160 1000 2181 "IO1_0" "13" "square"]
-	Pad[-17322 -984 -12598 -984 1160 1000 2181 "IO1_1" "14" "square"]
-	Pad[-17322 984 -12598 984 1160 1000 2181 "IO1_2" "15" "square"]
-	Pad[-17322 2952 -12598 2952 1160 1000 2181 "IO1_3" "16" "square"]
-	Pad[-17322 4921 -12598 4921 1160 1000 2181 "IO1_4" "17" "square"]
-	Pad[-17322 6889 -12598 6889 1160 1000 2181 "VDD" "18" "square"]
-	Pad[-17322 8858 -12598 8858 1160 1000 2181 "IO1_5" "19" "square"]
-	Pad[-17322 10826 -12598 10826 1160 1000 2181 "IO1_6" "20" "square"]
-	Pad[-17322 12795 -12598 12795 1160 1000 2181 "IO1_7" "21" "square"]
-	Pad[-17322 14763 -12598 14763 1160 1000 2181 "IO2_0" "22" "square"]
-	Pad[-17322 16732 -12598 16732 1160 1000 2181 "VSS" "23" "square"]
-	Pad[-17322 18700 -12598 18700 1160 1000 2181 "IO2_1" "24" "square"]
-	Pad[-17322 20669 -12598 20669 1160 1000 2181 "IO2_2" "25" "square"]
-	Pad[-17322 22637 -12598 22637 1160 1000 2181 "IO2_3" "26" "square"]
-	Pad[-17322 24606 -12598 24606 1160 1000 2181 "A0" "27" "square"]
-	Pad[-17322 26574 -12598 26574 1160 1000 2181 "A1" "28" "square"]
-	Pad[12598 26574 17322 26574 1160 1000 2181 "A2" "29" "square,edge2"]
-	Pad[12598 24606 17322 24606 1160 1000 2181 "_OE_" "30" "square,edge2"]
-	Pad[12598 22637 17322 22637 1160 1000 2181 "IO2_4" "31" "square,edge2"]
-	Pad[12598 20669 17322 20669 1160 1000 2181 "IO2_5" "32" "square,edge2"]
-	Pad[12598 18700 17322 18700 1160 1000 2181 "IO2_6" "33" "square,edge2"]
-	Pad[12598 16732 17322 16732 1160 1000 2181 "VSS" "34" "square,edge2"]
-	Pad[12598 14763 17322 14763 1160 1000 2181 "IO2_7" "35" "square,edge2"]
-	Pad[12598 12795 17322 12795 1160 1000 2181 "IO3_0" "36" "square,edge2"]
-	Pad[12598 10826 17322 10826 1160 1000 2181 "IO3_1" "37" "square,edge2"]
-	Pad[12598 8858 17322 8858 1160 1000 2181 "IO3_2" "38" "square,edge2"]
-	Pad[12598 6889 17322 6889 1160 1000 2181 "VSS" "39" "square,edge2"]
-	Pad[12598 4921 17322 4921 1160 1000 2181 "IO3_3" "40" "square,edge2"]
-	Pad[12598 2952 17322 2952 1160 1000 2181 "IO3_4" "41" "square,edge2"]
-	Pad[12598 984 17322 984 1160 1000 2181 "IO3_5" "42" "square,edge2"]
-	Pad[12598 -984 17322 -984 1160 1000 2181 "IO3_6" "43" "square,edge2"]
-	Pad[12598 -2952 17322 -2952 1160 1000 2181 "IO3_7" "44" "square,edge2"]
-	Pad[12598 -4921 17322 -4921 1160 1000 2181 "IO4_0" "45" "square,edge2"]
-	Pad[12598 -6889 17322 -6889 1160 1000 2181 "VDD" "46" "square,edge2"]
-	Pad[12598 -8858 17322 -8858 1160 1000 2181 "IO4_1" "47" "square,edge2"]
-	Pad[12598 -10826 17322 -10826 1160 1000 2181 "IO4_2" "48" "square,edge2"]
-	Pad[12598 -12795 17322 -12795 1160 1000 2181 "IO4_3" "49" "square,edge2"]
-	Pad[12598 -14763 17322 -14763 1160 1000 2181 "IO4_4" "50" "square,edge2"]
-	Pad[12598 -16732 17322 -16732 1160 1000 2181 "VSS" "51" "square,edge2"]
-	Pad[12598 -18700 17322 -18700 1160 1000 2181 "IO4_5" "52" "square,edge2"]
-	Pad[12598 -20669 17322 -20669 1160 1000 2181 "IO4_6" "53" "square,edge2"]
-	Pad[12598 -22637 17322 -22637 1160 1000 2181 "IO4_7" "54" "square,edge2"]
-	Pad[12598 -24606 17322 -24606 1160 1000 2181 "_INT_" "55" "square,edge2"]
-	Pad[12598 -26574 17322 -26574 1160 1000 2181 "_RESET_" "56" "square,edge2"]
-	ElementLine [18913 -28165 2500 -28165 1000]
-	ElementLine [-18913 -28165 -2500 -28165 1000]
-	ElementLine [18913 28165 18913 -28165 1000]
-	ElementLine [-18913 28165 18913 28165 1000]
-	ElementLine [-18913 -28165 -18913 28165 1000]
-	ElementArc [0 -28165 2500 2500 0 180 1000]
-
-	)
-
-Element["" "0805" "R1" "330" 150000 20000 -3150 -3150 0 100 ""]
-(
-	Pad[-3543 -393 -3543 393 5118 2000 5718 "1" "1" "square"]
-	Pad[3543 -393 3543 393 5118 2000 5718 "2" "2" "square"]
-	ElementLine [-393 -2755 393 -2755 1000]
-	ElementLine [-393 2755 393 2755 1000]
-
-	)
-
-Element["" "TERMBLK2_200MIL" "JA4" "unknown" 207500 460500 0 0 0 100 ""]
-(
-	Pin[-10000 0 8000 3000 8600 4800 "1" "1" "square,edge2"]
-	Pin[10000 0 8000 3000 8600 4800 "2" "2" "edge2"]
-	ElementLine [-20000 12800 20000 12800 1000]
-	ElementLine [-20000 -17200 20000 -17200 1000]
-	ElementLine [-20000 -12800 20000 -12800 1000]
-	ElementLine [-20000 -17200 -20000 12800 1000]
-	ElementLine [20000 -17200 20000 12800 1000]
-
-	)
-
-Element["" "TERMBLK2_200MIL" "JA3" "unknown" 167500 460500 0 0 0 100 ""]
-(
-	Pin[-10000 0 8000 3000 8600 4800 "1" "1" "square,edge2"]
-	Pin[10000 0 8000 3000 8600 4800 "2" "2" "edge2"]
-	ElementLine [-20000 12800 20000 12800 1000]
-	ElementLine [-20000 -17200 20000 -17200 1000]
-	ElementLine [-20000 -12800 20000 -12800 1000]
-	ElementLine [-20000 -17200 -20000 12800 1000]
-	ElementLine [20000 -17200 20000 12800 1000]
-
-	)
-
-Element["" "TERMBLK2_200MIL" "JA1" "unknown" 87500 460500 0 0 0 100 ""]
-(
-	Pin[-10000 0 8000 3000 8600 4800 "1" "1" "square,edge2"]
-	Pin[10000 0 8000 3000 8600 4800 "2" "2" "edge2"]
-	ElementLine [-20000 12800 20000 12800 1000]
-	ElementLine [-20000 -17200 20000 -17200 1000]
-	ElementLine [-20000 -12800 20000 -12800 1000]
-	ElementLine [-20000 -17200 -20000 12800 1000]
-	ElementLine [20000 -17200 20000 12800 1000]
-
-	)
-
-Element["" "TERMBLK2_200MIL" "JA2" "unknown" 127500 460500 0 0 0 100 ""]
-(
-	Pin[-10000 0 8000 3000 8600 4800 "1" "1" "square,edge2"]
-	Pin[10000 0 8000 3000 8600 4800 "2" "2" "edge2"]
-	ElementLine [-20000 12800 20000 12800 1000]
-	ElementLine [-20000 -17200 20000 -17200 1000]
-	ElementLine [-20000 -12800 20000 -12800 1000]
-	ElementLine [-20000 -17200 -20000 12800 1000]
-	ElementLine [20000 -17200 20000 12800 1000]
-
-	)
-
-Element["" "cap-elec-Panasonic-FK--D8.00-H10.20-mm" "C1A" "100uF" 90000 30000 -13600 -19800 0 100 ""]
-(
-	Pad[-4500 0 4500 0 4300 3000 4900 "+" "1" "square"]
-	Pad[21000 0 30100 0 4300 3000 4900 "2" "2" "square,edge2"]
-	ElementLine [-7600 -8600 3300 -17300 1000]
-	ElementLine [3300 -17300 33200 -17300 1000]
-	ElementLine [33200 -17300 33200 17300 1000]
-	ElementLine [33200 17300 3300 17300 1000]
-	ElementLine [3300 17300 -7600 8600 1000]
-	ElementLine [-7600 8600 -7600 -8600 1000]
-
-	)
-
-Element["" "SOD123" "D2" "unknown" 70000 20000 12000 0 3 100 ""]
-(
-	Pad[-6400 -600 -6400 600 3600 2000 4200 "cathode" "1" "square"]
-	Pad[6500 -600 6500 600 3600 2000 4200 "anode" "2" "square"]
-	ElementLine [-9800 4000 9900 4000 1000]
-	ElementLine [-9800 -4000 9900 -4000 1000]
-	ElementLine [-9800 4000 -9800 -4000 1000]
-	ElementLine [9900 4000 9900 -4000 1000]
-	ElementLine [-3000 4000 -3000 -4000 1000]
-
-	)
-
-Element["" "TERMBLK2_200MIL" "J1" "unknown" 30000 40000 0 0 3 100 ""]
-(
-	Pin[0 -10000 8000 3000 8600 4800 "1" "1" "square"]
-	Pin[0 10000 8000 3000 8600 4800 "2" "2" ""]
-	ElementLine [-12800 -20000 -12800 20000 1000]
-	ElementLine [17200 -20000 17200 20000 1000]
-	ElementLine [12800 -20000 12800 20000 1000]
-	ElementLine [-12800 -20000 17200 -20000 1000]
-	ElementLine [-12800 20000 17200 20000 1000]
-
-	)
-
-Element["" "modular_6p6c_lp.fp" "JB6" "unknown" 253075 164500 -9843 -9500 0 100 ""]
+Element["" "modular_6p6c_lp.fp" "J2" "unknown" 410500 263000 -9500 9843 1 100 ""]
 (
 	Attribute("author" "Alexander Kurz")
 	Attribute("copyright" "2009 Alexander Kurz")
@@ -1432,284 +1626,459 @@ Element["" "modular_6p6c_lp.fp" "JB6" "unknown" 253075 164500 -9843 -9500 0 100 
 	Attribute("dist-license" "CC-BY-SA-3.0")
 	Attribute("height" "11.5mm")
 	Attribute("ref" "Molex document number 50-95501-001 R/A low profile pc jack 4,6,8 ckrs site through hole version")
-	Pin[35000 -12500 7000 2000 7500 3000 "1" "1" "edge2"]
-	Pin[25000 -7500 7000 2000 7500 3000 "2" "2" "edge2"]
-	Pin[35000 -2500 7000 2000 7500 3000 "3" "3" "edge2"]
-	Pin[25000 2500 7000 2000 7500 3000 "4" "4" "edge2"]
-	Pin[35000 7500 7000 2000 7500 3000 "5" "5" "edge2"]
-	Pin[25000 12500 7000 2000 7500 3000 "6" "6" "edge2"]
-	Pin[0 -20000 12800 2000 13000 12800 "" "" "hole,edge2"]
-	Pin[0 20000 12800 2000 13000 12800 "" "" "hole,edge2"]
-	ElementLine [-31000 -26000 -31020 26000 2000]
-	ElementLine [40300 -26000 40300 26000 2000]
-	ElementLine [-31000 -26000 40300 -26000 2000]
-	ElementLine [-31000 26000 40300 26000 2000]
+	Pin[-12500 -35000 7000 2000 7500 3000 "1" "1" "edge2"]
+	Pin[-7500 -25000 7000 2000 7500 3000 "2" "2" "edge2"]
+	Pin[-2500 -35000 7000 2000 7500 3000 "3" "3" "edge2"]
+	Pin[2500 -25000 7000 2000 7500 3000 "4" "4" "edge2"]
+	Pin[7500 -35000 7000 2000 7500 3000 "5" "5" "edge2"]
+	Pin[12500 -25000 7000 2000 7500 3000 "6" "6" "edge2"]
+	Pin[-20000 0 12800 2000 13000 12800 "" "" "hole,edge2"]
+	Pin[20000 0 12800 2000 13000 12800 "" "" "hole,edge2"]
+	ElementLine [-26000 -40300 26000 -40300 1000]
+	ElementLine [-26000 -40300 -26000 -17000 1000]
+	ElementLine [26000 -40300 26000 -17000 1000]
 
 	)
 
-Element["" "modular_6p6c_lp.fp" "JD6" "unknown" 205575 226500 -9843 -9500 0 100 ""]
+Element["" "tantalum_a" "C5" "22uF" 215500 106500 -2500 9900 0 100 ""]
 (
-	Attribute("author" "Alexander Kurz")
-	Attribute("copyright" "2009 Alexander Kurz")
-	Attribute("use-license" "Unlimited")
-	Attribute("dist-license" "CC-BY-SA-3.0")
-	Attribute("height" "11.5mm")
-	Attribute("ref" "Molex document number 50-95501-001 R/A low profile pc jack 4,6,8 ckrs site through hole version")
-	Pin[35000 -12500 7000 2000 7500 3000 "1" "1" "edge2"]
-	Pin[25000 -7500 7000 2000 7500 3000 "2" "2" "edge2"]
-	Pin[35000 -2500 7000 2000 7500 3000 "3" "3" "edge2"]
-	Pin[25000 2500 7000 2000 7500 3000 "4" "4" "edge2"]
-	Pin[35000 7500 7000 2000 7500 3000 "5" "5" "edge2"]
-	Pin[25000 12500 7000 2000 7500 3000 "6" "6" "edge2"]
-	Pin[0 -20000 12800 2000 13000 12800 "" "" "hole,edge2"]
-	Pin[0 20000 12800 2000 13000 12800 "" "" "hole,edge2"]
-	ElementLine [-31000 -26000 -31020 26000 2000]
-	ElementLine [40300 -26000 40300 26000 2000]
-	ElementLine [-31000 -26000 40300 -26000 2000]
-	ElementLine [-31000 26000 40300 26000 2000]
+	Pad[-1800 -5000 1800 -5000 4900 2000 5500 "1" "1" "square"]
+	Pad[-1800 5000 1800 5000 4900 2000 5500 "2" "2" "square"]
+	ElementLine [-4300 -9600 4300 -9600 2000]
+	ElementLine [-4300 -9600 -5500 -7200 1000]
+	ElementLine [-5500 -7200 -5500 8600 1000]
+	ElementLine [-5500 8600 5500 8600 1000]
+	ElementLine [5500 -7200 5500 8600 1000]
+	ElementLine [5500 -7200 4300 -9600 1000]
 
 	)
-
-Element["" "modular_6p6c_lp.fp" "JE5" "unknown" 225500 364000 -9843 -9500 0 100 ""]
-(
-	Attribute("author" "Alexander Kurz")
-	Attribute("copyright" "2009 Alexander Kurz")
-	Attribute("use-license" "Unlimited")
-	Attribute("dist-license" "CC-BY-SA-3.0")
-	Attribute("height" "11.5mm")
-	Attribute("ref" "Molex document number 50-95501-001 R/A low profile pc jack 4,6,8 ckrs site through hole version")
-	Pin[35000 -12500 7000 2000 7500 3000 "1" "1" "edge2"]
-	Pin[25000 -7500 7000 2000 7500 3000 "2" "2" "edge2"]
-	Pin[35000 -2500 7000 2000 7500 3000 "3" "3" "edge2"]
-	Pin[25000 2500 7000 2000 7500 3000 "4" "4" "edge2"]
-	Pin[35000 7500 7000 2000 7500 3000 "5" "5" "edge2"]
-	Pin[25000 12500 7000 2000 7500 3000 "6" "6" "edge2"]
-	Pin[0 -20000 12800 2000 13000 12800 "" "" "hole,edge2"]
-	Pin[0 20000 12800 2000 13000 12800 "" "" "hole,edge2"]
-	ElementLine [-31000 -26000 -31020 26000 2000]
-	ElementLine [40300 -26000 40300 26000 2000]
-	ElementLine [-31000 -26000 40300 -26000 2000]
-	ElementLine [-31000 26000 40300 26000 2000]
-
-	)
-
-Element["" "modular_6p6c_lp.fp" "JE6" "unknown" 422000 161000 -9843 -9500 0 100 ""]
-(
-	Attribute("author" "Alexander Kurz")
-	Attribute("copyright" "2009 Alexander Kurz")
-	Attribute("use-license" "Unlimited")
-	Attribute("dist-license" "CC-BY-SA-3.0")
-	Attribute("height" "11.5mm")
-	Attribute("ref" "Molex document number 50-95501-001 R/A low profile pc jack 4,6,8 ckrs site through hole version")
-	Pin[35000 -12500 7000 2000 7500 3000 "1" "1" "edge2"]
-	Pin[25000 -7500 7000 2000 7500 3000 "2" "2" "edge2"]
-	Pin[35000 -2500 7000 2000 7500 3000 "3" "3" "edge2"]
-	Pin[25000 2500 7000 2000 7500 3000 "4" "4" "edge2"]
-	Pin[35000 7500 7000 2000 7500 3000 "5" "5" "edge2"]
-	Pin[25000 12500 7000 2000 7500 3000 "6" "6" "edge2"]
-	Pin[0 -20000 12800 2000 13000 12800 "" "" "hole,edge2"]
-	Pin[0 20000 12800 2000 13000 12800 "" "" "hole,edge2"]
-	ElementLine [-31000 -26000 -31020 26000 2000]
-	ElementLine [40300 -26000 40300 26000 2000]
-	ElementLine [-31000 -26000 40300 -26000 2000]
-	ElementLine [-31000 26000 40300 26000 2000]
-
-	)
-
-Element["" "modular_6p6c_lp.fp" "J3" "unknown" 337500 157500 -9843 -9500 0 100 ""]
-(
-	Attribute("author" "Alexander Kurz")
-	Attribute("copyright" "2009 Alexander Kurz")
-	Attribute("use-license" "Unlimited")
-	Attribute("dist-license" "CC-BY-SA-3.0")
-	Attribute("height" "11.5mm")
-	Attribute("ref" "Molex document number 50-95501-001 R/A low profile pc jack 4,6,8 ckrs site through hole version")
-	Pin[35000 -12500 7000 2000 7500 3000 "1" "1" "edge2"]
-	Pin[25000 -7500 7000 2000 7500 3000 "2" "2" "edge2"]
-	Pin[35000 -2500 7000 2000 7500 3000 "3" "3" "edge2"]
-	Pin[25000 2500 7000 2000 7500 3000 "4" "4" "edge2"]
-	Pin[35000 7500 7000 2000 7500 3000 "5" "5" "edge2"]
-	Pin[25000 12500 7000 2000 7500 3000 "6" "6" "edge2"]
-	Pin[0 -20000 12800 2000 13000 12800 "" "" "hole,edge2"]
-	Pin[0 20000 12800 2000 13000 12800 "" "" "hole,edge2"]
-	ElementLine [-31000 -26000 -31020 26000 2000]
-	ElementLine [40300 -26000 40300 26000 2000]
-	ElementLine [-31000 -26000 40300 -26000 2000]
-	ElementLine [-31000 26000 40300 26000 2000]
-
-	)
-
-Element["" "modular_6p6c_lp.fp" "J2" "unknown" 558500 364000 -9843 -9500 0 100 ""]
-(
-	Attribute("author" "Alexander Kurz")
-	Attribute("copyright" "2009 Alexander Kurz")
-	Attribute("use-license" "Unlimited")
-	Attribute("dist-license" "CC-BY-SA-3.0")
-	Attribute("height" "11.5mm")
-	Attribute("ref" "Molex document number 50-95501-001 R/A low profile pc jack 4,6,8 ckrs site through hole version")
-	Pin[35000 -12500 7000 2000 7500 3000 "1" "1" "edge2"]
-	Pin[25000 -7500 7000 2000 7500 3000 "2" "2" "edge2"]
-	Pin[35000 -2500 7000 2000 7500 3000 "3" "3" "edge2"]
-	Pin[25000 2500 7000 2000 7500 3000 "4" "4" "edge2"]
-	Pin[35000 7500 7000 2000 7500 3000 "5" "5" "edge2"]
-	Pin[25000 12500 7000 2000 7500 3000 "6" "6" "edge2"]
-	Pin[0 -20000 12800 2000 13000 12800 "" "" "hole,edge2"]
-	Pin[0 20000 12800 2000 13000 12800 "" "" "hole,edge2"]
-	ElementLine [-31000 -26000 -31020 26000 2000]
-	ElementLine [40300 -26000 40300 26000 2000]
-	ElementLine [-31000 -26000 40300 -26000 2000]
-	ElementLine [-31000 26000 40300 26000 2000]
-
-	)
-
-Element["" "modular_6p6c_lp.fp" "JC5" "unknown" 475500 364000 -9843 -9500 0 100 ""]
-(
-	Attribute("author" "Alexander Kurz")
-	Attribute("copyright" "2009 Alexander Kurz")
-	Attribute("use-license" "Unlimited")
-	Attribute("dist-license" "CC-BY-SA-3.0")
-	Attribute("height" "11.5mm")
-	Attribute("ref" "Molex document number 50-95501-001 R/A low profile pc jack 4,6,8 ckrs site through hole version")
-	Pin[35000 -12500 7000 2000 7500 3000 "1" "1" "edge2"]
-	Pin[25000 -7500 7000 2000 7500 3000 "2" "2" "edge2"]
-	Pin[35000 -2500 7000 2000 7500 3000 "3" "3" "edge2"]
-	Pin[25000 2500 7000 2000 7500 3000 "4" "4" "edge2"]
-	Pin[35000 7500 7000 2000 7500 3000 "5" "5" "edge2"]
-	Pin[25000 12500 7000 2000 7500 3000 "6" "6" "edge2"]
-	Pin[0 -20000 12800 2000 13000 12800 "" "" "hole,edge2"]
-	Pin[0 20000 12800 2000 13000 12800 "" "" "hole,edge2"]
-	ElementLine [-31000 -26000 -31020 26000 2000]
-	ElementLine [40300 -26000 40300 26000 2000]
-	ElementLine [-31000 -26000 40300 -26000 2000]
-	ElementLine [-31000 26000 40300 26000 2000]
-
-	)
-
-Element["" "modular_6p6c_lp.fp" "JC6" "unknown" 392000 364000 -9843 -9500 0 100 ""]
-(
-	Attribute("author" "Alexander Kurz")
-	Attribute("copyright" "2009 Alexander Kurz")
-	Attribute("use-license" "Unlimited")
-	Attribute("dist-license" "CC-BY-SA-3.0")
-	Attribute("height" "11.5mm")
-	Attribute("ref" "Molex document number 50-95501-001 R/A low profile pc jack 4,6,8 ckrs site through hole version")
-	Pin[35000 -12500 7000 2000 7500 3000 "1" "1" "edge2"]
-	Pin[25000 -7500 7000 2000 7500 3000 "2" "2" "edge2"]
-	Pin[35000 -2500 7000 2000 7500 3000 "3" "3" "edge2"]
-	Pin[25000 2500 7000 2000 7500 3000 "4" "4" "edge2"]
-	Pin[35000 7500 7000 2000 7500 3000 "5" "5" "edge2"]
-	Pin[25000 12500 7000 2000 7500 3000 "6" "6" "edge2"]
-	Pin[0 -20000 12800 2000 13000 12800 "" "" "hole,edge2"]
-	Pin[0 20000 12800 2000 13000 12800 "" "" "hole,edge2"]
-	ElementLine [-31000 -26000 -31020 26000 2000]
-	ElementLine [40300 -26000 40300 26000 2000]
-	ElementLine [-31000 -26000 40300 -26000 2000]
-	ElementLine [-31000 26000 40300 26000 2000]
-
-	)
-
-Element["" "modular_6p6c_lp.fp" "JD5" "unknown" 308500 364000 -9843 -9500 0 100 ""]
-(
-	Attribute("author" "Alexander Kurz")
-	Attribute("copyright" "2009 Alexander Kurz")
-	Attribute("use-license" "Unlimited")
-	Attribute("dist-license" "CC-BY-SA-3.0")
-	Attribute("height" "11.5mm")
-	Attribute("ref" "Molex document number 50-95501-001 R/A low profile pc jack 4,6,8 ckrs site through hole version")
-	Pin[35000 -12500 7000 2000 7500 3000 "1" "1" "edge2"]
-	Pin[25000 -7500 7000 2000 7500 3000 "2" "2" "edge2"]
-	Pin[35000 -2500 7000 2000 7500 3000 "3" "3" "edge2"]
-	Pin[25000 2500 7000 2000 7500 3000 "4" "4" "edge2"]
-	Pin[35000 7500 7000 2000 7500 3000 "5" "5" "edge2"]
-	Pin[25000 12500 7000 2000 7500 3000 "6" "6" "edge2"]
-	Pin[0 -20000 12800 2000 13000 12800 "" "" "hole,edge2"]
-	Pin[0 20000 12800 2000 13000 12800 "" "" "hole,edge2"]
-	ElementLine [-31000 -26000 -31020 26000 2000]
-	ElementLine [40300 -26000 40300 26000 2000]
-	ElementLine [-31000 -26000 40300 -26000 2000]
-	ElementLine [-31000 26000 40300 26000 2000]
-
-	)
-
-Element["" "modular_6p6c_lp.fp" "JA5" "unknown" 452500 235000 -9843 -9500 0 100 ""]
-(
-	Attribute("author" "Alexander Kurz")
-	Attribute("copyright" "2009 Alexander Kurz")
-	Attribute("use-license" "Unlimited")
-	Attribute("dist-license" "CC-BY-SA-3.0")
-	Attribute("height" "11.5mm")
-	Attribute("ref" "Molex document number 50-95501-001 R/A low profile pc jack 4,6,8 ckrs site through hole version")
-	Pin[35000 -12500 7000 2000 7500 3000 "1" "1" "edge2"]
-	Pin[25000 -7500 7000 2000 7500 3000 "2" "2" "edge2"]
-	Pin[35000 -2500 7000 2000 7500 3000 "3" "3" "edge2"]
-	Pin[25000 2500 7000 2000 7500 3000 "4" "4" "edge2"]
-	Pin[35000 7500 7000 2000 7500 3000 "5" "5" "edge2"]
-	Pin[25000 12500 7000 2000 7500 3000 "6" "6" "edge2"]
-	Pin[0 -20000 12800 2000 13000 12800 "" "" "hole,edge2"]
-	Pin[0 20000 12800 2000 13000 12800 "" "" "hole,edge2"]
-	ElementLine [-31000 -26000 -31020 26000 2000]
-	ElementLine [40300 -26000 40300 26000 2000]
-	ElementLine [-31000 -26000 40300 -26000 2000]
-	ElementLine [-31000 26000 40300 26000 2000]
-
-	)
-
-Element["" "modular_6p6c_lp.fp" "JA6" "unknown" 369000 235000 -9843 -9500 0 100 ""]
-(
-	Attribute("author" "Alexander Kurz")
-	Attribute("copyright" "2009 Alexander Kurz")
-	Attribute("use-license" "Unlimited")
-	Attribute("dist-license" "CC-BY-SA-3.0")
-	Attribute("height" "11.5mm")
-	Attribute("ref" "Molex document number 50-95501-001 R/A low profile pc jack 4,6,8 ckrs site through hole version")
-	Pin[35000 -12500 7000 2000 7500 3000 "1" "1" "edge2"]
-	Pin[25000 -7500 7000 2000 7500 3000 "2" "2" "edge2"]
-	Pin[35000 -2500 7000 2000 7500 3000 "3" "3" "edge2"]
-	Pin[25000 2500 7000 2000 7500 3000 "4" "4" "edge2"]
-	Pin[35000 7500 7000 2000 7500 3000 "5" "5" "edge2"]
-	Pin[25000 12500 7000 2000 7500 3000 "6" "6" "edge2"]
-	Pin[0 -20000 12800 2000 13000 12800 "" "" "hole,edge2"]
-	Pin[0 20000 12800 2000 13000 12800 "" "" "hole,edge2"]
-	ElementLine [-31000 -26000 -31020 26000 2000]
-	ElementLine [40300 -26000 40300 26000 2000]
-	ElementLine [-31000 -26000 40300 -26000 2000]
-	ElementLine [-31000 26000 40300 26000 2000]
-
-	)
-
-Element["" "modular_6p6c_lp.fp" "JB5" "unknown" 286000 235000 -9843 -9500 0 100 ""]
-(
-	Attribute("author" "Alexander Kurz")
-	Attribute("copyright" "2009 Alexander Kurz")
-	Attribute("use-license" "Unlimited")
-	Attribute("dist-license" "CC-BY-SA-3.0")
-	Attribute("height" "11.5mm")
-	Attribute("ref" "Molex document number 50-95501-001 R/A low profile pc jack 4,6,8 ckrs site through hole version")
-	Pin[35000 -12500 7000 2000 7500 3000 "1" "1" "edge2"]
-	Pin[25000 -7500 7000 2000 7500 3000 "2" "2" "edge2"]
-	Pin[35000 -2500 7000 2000 7500 3000 "3" "3" "edge2"]
-	Pin[25000 2500 7000 2000 7500 3000 "4" "4" "edge2"]
-	Pin[35000 7500 7000 2000 7500 3000 "5" "5" "edge2"]
-	Pin[25000 12500 7000 2000 7500 3000 "6" "6" "edge2"]
-	Pin[0 -20000 12800 2000 13000 12800 "" "" "hole,edge2"]
-	Pin[0 20000 12800 2000 13000 12800 "" "" "hole,edge2"]
-	ElementLine [-31000 -26000 -31020 26000 2000]
-	ElementLine [40300 -26000 40300 26000 2000]
-	ElementLine [-31000 -26000 40300 -26000 2000]
-	ElementLine [-31000 26000 40300 26000 2000]
-
-	)
+Rat[261889 102322 0 268000 123500 1  ""]
+Rat[181500 74000 1 173000 46500 1  ""]
+Rat[303043 73607 0 293000 46500 1  ""]
+Rat[208107 60457 0 210500 22500 1  ""]
+Rat[210500 22500 1 230500 22500 1  ""]
+Rat[210500 147500 1 201500 194700 0  ""]
+Rat[201500 194700 0 222957 196107 0  ""]
+Rat[222957 196107 0 252957 196107 0  ""]
+Rat[308500 96000 1 348000 123500 1  ""]
+Rat[70742 92500 1 93000 46500 1  ""]
+Rat[308500 74000 1 373000 46500 1  ""]
+Rat[373000 46500 1 502500 55000 1  ""]
+Rat[502500 55000 1 502500 75000 1  ""]
+Rat[502500 75000 1 502500 95000 1  ""]
+Rat[502500 95000 1 502500 115000 1  ""]
+Rat[264500 133500 0 252048 102322 0  ""]
+Rat[278000 123500 0 254016 102322 0  ""]
+Rat[283000 133500 0 255984 102322 0  ""]
+Rat[288000 123500 0 257952 102322 0  ""]
+Rat[330500 147500 1 259921 102322 0  ""]
+Rat[358000 123500 0 263858 102322 0  ""]
+Rat[363000 133500 0 265826 102322 0  ""]
+Rat[368000 123500 0 267795 102322 0  ""]
+Rat[450500 147500 1 269763 102322 0  ""]
+Rat[470500 147500 1 273700 102322 0  ""]
+Rat[490500 147500 1 275669 102322 0  ""]
+Rat[510500 147500 1 277637 102322 0  ""]
+Rat[510500 22500 1 277637 67678 0  ""]
+Rat[490500 22500 1 275669 67678 0  ""]
+Rat[470500 22500 1 273700 67678 0  ""]
+Rat[450500 22500 1 269763 67678 0  ""]
+Rat[390500 22500 1 368000 36500 1  ""]
+Rat[368000 36500 1 267795 67678 0  ""]
+Rat[370500 22500 1 363000 46500 1  ""]
+Rat[363000 46500 1 265826 67678 0  ""]
+Rat[350500 22500 1 358000 36500 1  ""]
+Rat[350500 22500 1 263858 67678 0  ""]
+Rat[330500 22500 1 353000 46500 1  ""]
+Rat[330500 22500 1 259921 67678 0  ""]
+Rat[310500 22500 1 288000 36500 1  ""]
+Rat[288000 36500 1 257952 67678 0  ""]
+Rat[290500 22500 1 283000 46500 1  ""]
+Rat[283000 46500 1 255984 67678 0  ""]
+Rat[270500 22500 1 278000 36500 1  ""]
+Rat[278000 36500 1 254016 67678 0  ""]
+Rat[250500 22500 1 273000 46500 1  ""]
+Rat[273000 46500 1 252048 67678 0  ""]
+Rat[190500 22500 1 168000 36500 1  ""]
+Rat[190500 22500 1 250079 67678 0  ""]
+Rat[170500 22500 1 163000 46500 1  ""]
+Rat[163000 46500 1 246142 67678 0  ""]
+Rat[150500 22500 1 158000 36500 1  ""]
+Rat[158000 36500 1 244174 67678 0  ""]
+Rat[130500 22500 1 153000 46500 1  ""]
+Rat[153000 46500 1 242205 67678 0  ""]
+Rat[110500 22500 1 88000 36500 1  ""]
+Rat[110500 22500 1 240237 67678 0  ""]
+Rat[90500 22500 1 83000 46500 1  ""]
+Rat[90500 22500 1 236300 67678 0  ""]
+Rat[70500 22500 1 78000 36500 1  ""]
+Rat[78000 36500 1 234331 67678 0  ""]
+Rat[50500 22500 1 73000 46500 1  ""]
+Rat[73000 46500 1 232363 67678 0  ""]
+Rat[271732 102322 0 297500 115500 0  ""]
+Rat[271732 67678 0 268000 36500 1  ""]
+Rat[30500 22500 1 68000 36500 1  ""]
+Rat[172000 76000 0 148000 36500 1  ""]
+Rat[271732 67678 0 319000 68050 0  ""]
+Rat[339000 65450 0 348000 36500 1  ""]
+Rat[339000 68050 0 377500 115500 0  ""]
+Rat[377500 129000 0 410500 147500 1  ""]
+Rat[410500 147500 1 430500 147500 1  ""]
+Rat[348000 36500 1 410500 22500 1  ""]
+Rat[410500 22500 1 430500 22500 1  ""]
+Rat[293000 133500 1 260043 196107 0  ""]
+Rat[260043 196107 0 230043 196107 0  ""]
+Rat[230043 196107 0 211500 194700 0  ""]
+Rat[430500 147500 1 423000 238000 1  ""]
+Rat[423000 238000 1 359500 237000 1  ""]
+Rat[398000 228000 1 334500 227000 1  ""]
+Rat[334500 227000 1 285000 99500 1  ""]
+Rat[403000 238000 1 339500 237000 1  ""]
+Rat[339500 237000 1 285000 101500 1  ""]
+Rat[418000 228000 1 354500 227000 1  ""]
+Rat[354500 227000 1 279606 67678 0  ""]
+Rat[413000 238000 1 349500 237000 1  ""]
+Rat[349500 237000 1 228426 67678 0  ""]
+Rat[408000 228000 1 344500 227000 1  ""]
+Rat[344500 227000 1 230394 67678 0  ""]
 Layer(1 "component")
 (
+	Line[261889 94111 262000 94000 1000 2000 "clearline"]
+	Line[319000 101950 297450 101950 1000 2000 "clearline"]
+	Line[297450 101950 296000 100500 1000 2000 "clearline"]
+	Line[296000 100500 296000 96043 1000 2000 "clearline"]
+	Line[296000 96043 295957 96000 1000 2000 "clearline"]
+	Line[329000 101950 329000 93000 1000 2000 "clearline"]
+	Line[329000 93000 326500 90500 1000 2000 "clearline"]
+	Line[326500 90500 297500 90500 1000 2000 "clearline"]
+	Line[297500 90500 296000 89000 1000 2000 "clearline"]
+	Line[296000 89000 296000 85043 1000 2000 "clearline"]
+	Line[296000 85043 295957 85000 1000 2000 "clearline"]
+	Line[339000 101950 339000 82000 1000 2000 "clearline"]
+	Line[339000 82000 336500 79500 1000 2000 "clearline"]
+	Line[279606 83894 284000 79500 1000 2000 "clearline"]
+	Line[336500 79500 284000 79500 1000 2000 "clearline"]
+	Line[296000 79500 296000 74043 1000 2000 "clearline"]
+	Line[296000 74043 295957 74000 1000 2000 "clearline"]
+	Line[303043 74000 308500 74000 2000 2000 "clearline"]
+	Line[303043 85000 308500 85000 2000 2000 "clearline"]
+	Line[303043 96000 308500 96000 2000 2000 "clearline"]
+	Line[339000 68050 319000 68050 2000 2000 "clearline"]
+	Line[281574 99960 281574 87926 1000 2000 "clearline"]
+	Line[281574 87926 284500 85000 1000 2000 "clearline"]
+	Line[284500 85000 295957 85000 1000 2000 "clearline"]
+	Line[279606 99960 279606 83894 1000 2000 "clearline"]
+	Line[295957 96000 291000 96000 1000 2000 "clearline"]
+	Line[291000 96000 289000 94000 1000 2000 "clearline"]
+	Line[289000 94000 289000 90500 1000 2000 "clearline"]
+	Line[281574 70040 281574 76926 1000 2000 "clearline"]
+	Line[281574 76926 281500 77000 1000 2000 "clearline"]
+	Line[248111 70040 248111 75889 1000 2000 "clearline"]
+	Line[248111 75889 248000 76000 1000 2000 "clearline"]
+	Line[261889 99960 261889 94111 1000 2000 "clearline"]
+	Line[186500 83500 186500 103957 4500 2000 "clearline"]
+	Line[186500 103957 186000 104457 4500 2000 "clearline"]
+	Line[186500 83500 197000 83500 2000 2000 "clearline"]
+	Line[197000 83500 201500 79000 2000 2000 "clearline"]
+	Line[201500 79000 201500 62500 2000 2000 "clearline"]
+	Line[201500 62500 203500 60500 2000 2000 "clearline"]
+	Line[203500 60500 208457 60500 2000 2000 "clearline"]
+	Line[208457 60500 208500 60457 2000 2000 "clearline"]
+	Line[208500 67543 208500 77595 2000 2000 "clearline"]
+	Line[208500 89405 223405 89405 2000 2000 "clearline"]
+	Line[238268 70040 238268 76768 1000 2000 ""]
+	Line[261889 76889 262000 77000 1000 2000 ""]
+	Line[261889 70040 261889 76889 1000 2000 ""]
+	Line[238268 76768 238500 77000 1000 2000 ""]
+	Line[271732 70040 271732 75268 1000 2000 ""]
+	Line[271732 75268 271500 75500 1000 2000 ""]
+	Line[271732 99960 271732 93732 1000 2000 ""]
+	Line[271732 93732 271500 93500 1000 2000 ""]
+	Line[248111 99960 248111 93611 1000 2000 ""]
+	Line[248111 93611 248000 93500 1000 2000 ""]
+	Line[238268 99960 238268 93232 1000 2000 ""]
+	Line[238268 93232 238500 93000 1000 2000 ""]
+	Line[73000 133500 64500 133500 1000 2000 ""]
+	Line[64500 133500 50500 147500 1000 2000 ""]
+	Line[78000 123500 78000 140000 1000 2000 ""]
+	Line[78000 140000 70500 147500 1000 2000 ""]
+	Line[83000 133500 83000 140000 1000 2000 ""]
+	Line[83000 140000 90500 147500 1000 2000 ""]
+	Line[88000 123500 88000 136000 1000 2000 ""]
+	Line[88000 136000 99500 147500 1000 2000 ""]
+	Line[99500 147500 110500 147500 1000 2000 ""]
+	Line[93000 133500 97500 129000 5000 2000 ""]
+	Line[97500 129000 97500 115500 5000 2000 ""]
+	Line[153000 133500 144500 133500 1000 2000 ""]
+	Line[144500 133500 130500 147500 1000 2000 ""]
+	Line[158000 123500 158000 140000 1000 2000 ""]
+	Line[158000 140000 150500 147500 1000 2000 ""]
+	Line[163000 133500 163000 140000 1000 2000 ""]
+	Line[163000 140000 170500 147500 1000 2000 ""]
+	Line[168000 123500 168000 136000 1000 2000 ""]
+	Line[168000 136000 179500 147500 1000 2000 ""]
+	Line[179500 147500 190500 147500 1000 2000 ""]
+	Line[173000 133500 177500 129000 5000 2000 ""]
+	Line[177500 129000 177500 111000 5000 2000 ""]
+	Line[273000 133500 264500 133500 1000 2000 ""]
+	Line[264500 133500 250500 147500 1000 2000 ""]
+	Line[278000 123500 278000 140000 1000 2000 ""]
+	Line[278000 140000 270500 147500 1000 2000 ""]
+	Line[283000 133500 283000 140000 1000 2000 ""]
+	Line[283000 140000 290500 147500 1000 2000 ""]
+	Line[288000 123500 288000 136000 1000 2000 ""]
+	Line[288000 136000 299500 147500 1000 2000 ""]
+	Line[299500 147500 310500 147500 1000 2000 ""]
+	Line[293000 133500 297500 129000 5000 2000 ""]
+	Line[297500 129000 297500 115500 5000 2000 ""]
+	Line[353000 133500 344500 133500 1000 2000 ""]
+	Line[344500 133500 330500 147500 1000 2000 ""]
+	Line[358000 123500 358000 140000 1000 2000 ""]
+	Line[358000 140000 350500 147500 1000 2000 ""]
+	Line[363000 133500 363000 140000 1000 2000 ""]
+	Line[363000 140000 370500 147500 1000 2000 ""]
+	Line[368000 123500 368000 136000 1000 2000 ""]
+	Line[368000 136000 379500 147500 1000 2000 ""]
+	Line[379500 147500 390500 147500 1000 2000 ""]
+	Line[373000 133500 377500 129000 5000 2000 ""]
+	Line[377500 129000 377500 115500 5000 2000 ""]
+	Line[228426 99960 228426 93574 1000 2000 ""]
+	Line[228426 93574 228500 93500 1000 2000 ""]
+	Line[230394 96106 233000 93500 1000 2000 ""]
+	Line[230394 99960 230394 96106 1000 2000 ""]
+	Line[240237 99960 240237 109263 1000 2000 ""]
+	Line[240237 109263 229500 120000 1000 2000 ""]
+	Line[234331 99960 234331 106169 1000 2000 ""]
+	Line[234331 106169 229500 111000 1000 2000 ""]
+	Line[236300 99960 236300 108700 1000 2000 ""]
+	Line[236300 108700 229500 115500 1000 2000 ""]
+	Line[232363 99960 232363 103637 1000 2000 ""]
+	Line[232363 103637 229500 106500 1000 2000 ""]
+	Line[242205 99960 242205 111795 1000 2000 ""]
+	Line[242205 111795 230500 123500 1000 2000 ""]
+	Line[197000 119500 201000 123500 1000 2000 ""]
+	Line[244174 99960 244174 112826 1000 2000 ""]
+	Line[244174 112826 231500 125500 1000 2000 ""]
+	Line[232500 127500 183000 127500 1000 2000 ""]
+	Line[246142 99960 246142 113858 1000 2000 ""]
+	Line[246142 113858 232500 127500 1000 2000 ""]
+	Line[190500 132500 190500 147500 1000 2000 ""]
+	Line[250079 99960 250079 112921 1000 2000 ""]
+	Line[250079 112921 233500 129500 1000 2000 ""]
+	Line[233500 129500 193500 129500 1000 2000 ""]
+	Line[193500 129500 190500 132500 1000 2000 ""]
+	Line[231500 125500 200000 125500 1000 2000 ""]
+	Line[200000 125500 198000 123500 1000 2000 ""]
+	Line[198000 123500 185500 123500 1000 2000 ""]
+	Line[230500 123500 201000 123500 1000 2000 ""]
+	Line[183500 119500 197000 119500 1000 2000 ""]
+	Polygon("")
+	(
+		[183000 107000] [220000 107000] [220000 93500] [183000 93500] 
+	)
+	Polygon("clearpoly")
+	(
+		[30000 84000] [15000 84000] [15000 50500] [30000 50500] 
+	)
+	Polygon("")
+	(
+		[15000 50500] [30000 50500] [30000 61000] [15000 61000] 
+	)
+	Polygon("clearpoly")
+	(
+		[33000 50500] [133500 50500] [133500 84000] [57000 84000] [57000 69500] 
+		[33000 69500] 
+	)
+	Polygon("")
+	(
+		[33000 50500] [42500 50500] [42500 60500] [33000 60500] 
+	)
+	Polygon("")
+	(
+		[82500 84000] [135000 84000] [135000 63000] [82500 63000] 
+	)
+	Polygon("clearpoly")
+	(
+		[33000 119500] [133500 119500] [133500 86000] [57000 86000] [57000 100500] 
+		[33000 100500] 
+	)
+	Polygon("")
+	(
+		[82500 107000] [133500 107000] [133500 86000] [82500 86000] 
+	)
+	Polygon("clearpoly")
+	(
+		[500 160000] [40500 160000] [40500 86000] [500 86000] 
+	)
+	Polygon("clearpoly")
+	(
+		[500 10000] [40500 10000] [40500 48500] [500 48500] 
+	)
+	Polygon("clearpoly")
+	(
+		[500 46500] [13000 46500] [13000 88500] [500 88500] 
+	)
+	Polygon("clearpoly")
+	(
+		[128500 65000] [171000 65000] [171000 84000] [128500 84000] 
+	)
+	Polygon("clearpoly")
+	(
+		[171000 76000] [158500 76000] [158500 102000] [171000 102000] 
+	)
+	Polygon("")
+	(
+		[158500 92500] [171000 92500] [171000 102000] [158500 102000] 
+	)
+	Polygon("")
+	(
+		[226500 109000] [129000 109000] [129000 114000] [226500 114000] 
+	)
+	Polygon("clearpoly")
+	(
+		[172000 76000] [181500 76000] [181500 112000] [172000 112000] 
+	)
+	Polygon("")
+	(
+		[188500 91500] [202500 91500] [202500 95000] [188500 95000] 
+	)
+	Polygon("clearpoly")
+	(
+		[221000 85500] [226500 85500] [226500 114000] [221000 114000] 
+	)
+	Polygon("clearpoly")
+	(
+		[221000 74000] [272500 74000] [272500 90500] [221000 90500] 
+	)
+	Polygon("clearpoly")
+	(
+		[236000 96000] [272500 96000] [272500 88500] [236000 88500] 
+	)
+	Polygon("")
+	(
+		[221000 87000] [226000 87000] [226000 92000] [221000 92000] 
+	)
 )
 Layer(2 "solder")
 (
+	Line[308500 74000 308500 96000 2000 2000 "clearline"]
+	Line[281500 77000 281500 83000 1000 2000 "clearline"]
+	Line[281500 83000 289000 90500 1000 2000 "clearline"]
+	Line[231000 101500 285000 101500 1000 2000 ""]
+	Line[285500 94000 287500 96000 2000 2000 "clearline"]
+	Line[287500 96000 308500 96000 2000 2000 "clearline"]
+	Line[233000 93500 233000 97500 1000 2000 ""]
+	Line[76000 109000 73000 112000 1000 2000 ""]
+	Line[183000 135000 183000 127500 1000 2000 "clearline"]
+	Line[78000 123500 78000 113000 1000 2000 ""]
+	Line[78000 113000 80000 111000 1000 2000 ""]
+	Line[233000 97500 235000 99500 1000 2000 ""]
+	Line[235000 99500 285000 99500 1000 2000 ""]
+	Line[85000 113000 83000 115000 1000 2000 ""]
+	Line[155000 117000 181000 117000 1000 2000 ""]
+	Line[88000 123500 88000 116500 1000 2000 ""]
+	Line[88000 116500 89500 115000 1000 2000 ""]
+	Line[285500 94000 262000 94000 2000 2000 ""]
+	Line[228500 93500 228500 99000 1000 2000 ""]
+	Line[228500 99000 231000 101500 1000 2000 ""]
+	Line[229500 120000 224500 115000 1000 2000 ""]
+	Line[229500 106500 227000 109000 1000 2000 ""]
+	Line[80000 111000 229500 111000 1000 2000 ""]
+	Line[76000 109000 227000 109000 1000 2000 ""]
+	Line[85000 113000 227000 113000 1000 2000 ""]
+	Line[227000 113000 229500 115500 1000 2000 ""]
+	Line[89500 115000 224500 115000 1000 2000 ""]
+	Line[153000 133500 153000 119000 1000 2000 ""]
+	Line[153000 119000 155000 117000 1000 2000 ""]
+	Line[181000 117000 183500 119500 1000 2000 ""]
+	Line[83000 115000 83000 133500 1000 2000 "clearline"]
+	Line[158000 123500 163000 128500 1000 2000 ""]
+	Line[163000 128500 175500 128500 1000 2000 ""]
+	Line[175500 128500 180500 123500 1000 2000 ""]
+	Line[73000 112000 73000 133500 1000 2000 "clearline"]
+	Line[170500 147500 183000 135000 1000 2000 "clearline"]
+	Line[180500 123500 185500 123500 1000 2000 ""]
+	Polygon("clearpoly")
+	(
+		[183000 93500] [220000 93500] [220000 107000] [183000 107000] 
+	)
+	Polygon("clearpoly")
+	(
+		[223500 74000] [264000 74000] [264000 90500] [223500 90500] 
+	)
+	Polygon("clearpoly")
+	(
+		[181500 74000] [226500 74000] [226500 96000] [181500 96000] 
+	)
+	Polygon("clearpoly")
+	(
+		[264000 96000] [236000 96000] [236000 89000] [264000 89000] 
+	)
+	Polygon("clearpoly")
+	(
+		[54500 120000] [151500 120000] [151500 169000] [54500 169000] 
+	)
+	Polygon("clearpoly")
+	(
+		[140500 169000] [240500 169000] [240500 134500] [140500 134500] 
+	)
+	Polygon("clearpoly")
+	(
+		[54500 125000] [71500 125000] [71500 92500] [54500 92500] 
+	)
+	Polygon("clearpoly")
+	(
+		[54500 92500] [190000 92500] [190000 107000] [54500 107000] 
+	)
+	Polygon("clearpoly")
+	(
+		[70500 112000] [76500 106000] [70500 106000] [70500 112500] 
+	)
 )
 Layer(3 "silk")
 (
 )
 Layer(4 "silk")
 (
+	Line[500 169500 123500 169500 1000 2000 "clearline"]
+	Text[87500 162000 0 100 "A2" "clearline"]
+	Text[107500 162000 0 100 "A3" "clearline"]
+	Text[47500 162000 0 100 "A0" "clearline"]
+	Text[67500 162000 0 100 "A1" "clearline"]
+	Text[167500 162000 0 100 "A6" "clearline"]
+	Text[187500 162000 0 100 "A7" "clearline"]
+	Text[127500 162000 0 100 "A4" "clearline"]
+	Text[147500 162000 0 100 "A5" "clearline"]
+	Text[15500 162000 0 100 "GND" "clearline"]
+	Text[218000 162000 0 100 "5V" "clearline"]
+	Text[287500 162000 0 100 "B2" "clearline"]
+	Text[307500 162000 0 100 "B3" "clearline"]
+	Text[247500 162000 0 100 "B0" "clearline"]
+	Text[267500 162000 0 100 "B1" "clearline"]
+	Text[367500 162000 0 100 "B6" "clearline"]
+	Text[387500 162000 0 100 "B7" "clearline"]
+	Text[327500 162000 0 100 "B4" "clearline"]
+	Text[347500 162000 0 100 "B5" "clearline"]
+	Text[415500 162000 0 100 "GND" "clearline"]
+	Text[353500 8000 2 100 "D2" "clearline"]
+	Text[333500 8000 2 100 "D3" "clearline"]
+	Text[393500 8000 2 100 "D0" "clearline"]
+	Text[373500 8000 2 100 "D1" "clearline"]
+	Text[273500 8000 2 100 "D6" "clearline"]
+	Text[253500 8000 2 100 "D7" "clearline"]
+	Text[313500 8000 2 100 "D4" "clearline"]
+	Text[293500 8000 2 100 "D5" "clearline"]
+	Text[153500 8000 2 100 "E2" "clearline"]
+	Text[133500 8000 2 100 "E3" "clearline"]
+	Text[193500 8000 2 100 "E0" "clearline"]
+	Text[173500 8000 2 100 "E1" "clearline"]
+	Text[73500 8000 2 100 "E6" "clearline"]
+	Text[53500 8000 2 100 "E7" "clearline"]
+	Text[113500 8000 2 100 "E4" "clearline"]
+	Text[93500 8000 2 100 "E5" "clearline"]
+	Text[425500 8000 2 100 "GND" "clearline"]
+	Text[223000 8000 2 100 "5V" "clearline"]
+	Text[25500 8000 2 100 "GND" "clearline"]
 )
 NetList()
 (
@@ -1725,8 +2094,6 @@ NetList()
 		Connect("JA6-1")
 		Connect("JB5-1")
 		Connect("JB6-1")
-		Connect("JC5-1")
-		Connect("JC6-1")
 		Connect("JD5-1")
 		Connect("JD6-1")
 		Connect("JE5-1")
@@ -1846,49 +2213,41 @@ NetList()
 	Net("C0" "(unknown)")
 	(
 		Connect("JC1-1")
-		Connect("JC5-2")
 		Connect("U2-22")
 	)
 	Net("C1" "(unknown)")
 	(
 		Connect("JC1-2")
-		Connect("JC5-3")
 		Connect("U2-24")
 	)
 	Net("C2" "(unknown)")
 	(
 		Connect("JC2-1")
-		Connect("JC5-4")
 		Connect("U2-25")
 	)
 	Net("C3" "(unknown)")
 	(
 		Connect("JC2-2")
-		Connect("JC5-5")
 		Connect("U2-26")
 	)
 	Net("C4" "(unknown)")
 	(
 		Connect("JC3-1")
-		Connect("JC6-2")
 		Connect("U2-31")
 	)
 	Net("C5" "(unknown)")
 	(
 		Connect("JC3-2")
-		Connect("JC6-3")
 		Connect("U2-32")
 	)
 	Net("C6" "(unknown)")
 	(
 		Connect("JC4-1")
-		Connect("JC6-4")
 		Connect("U2-33")
 	)
 	Net("C7" "(unknown)")
 	(
 		Connect("JC4-2")
-		Connect("JC6-5")
 		Connect("U2-35")
 	)
 	Net("D0" "(unknown)")
@@ -2006,8 +2365,6 @@ NetList()
 		Connect("JA6-6")
 		Connect("JB5-6")
 		Connect("JB6-6")
-		Connect("JC5-6")
-		Connect("JC6-6")
 		Connect("JD5-6")
 		Connect("JD6-6")
 		Connect("JE5-6")
