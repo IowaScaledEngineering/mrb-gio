@@ -1,5 +1,5 @@
 # release: pcb 20100929
-# date:    Fri Dec 28 09:33:02 2012
+# date:    Mon Dec 31 13:13:49 2012
 # user:    railfan (Michael Petersen,,,)
 # host:    sylvanite
 
@@ -13,7 +13,7 @@ Cursor[0 0 0.000000]
 PolyArea[200000000.000000]
 Thermal[0.500000]
 DRC[800 800 800 1000 2000 800]
-Flags("showdrc,rubberband,nameonpcb,clearnew")
+Flags("showdrc,rubberband,nameonpcb,clearnew,snappin")
 Groups("1,c:2,s")
 Styles["Signal,1000,3600,2000,1000:Power,2500,6000,3500,1000:Fat,4000,6000,3500,1000:Skinny,600,2402,1181,600"]
 
@@ -1514,7 +1514,7 @@ Element["" "TQFP32" "U2" "unknown" 91000 126000 16000 -20500 0 100 ""]
 
 	)
 
-Element["hidename" "STANDOFF_HEX_n4" "H2" "unknown" 206500 16000 0 10000 0 100 ""]
+Element["hidename" "STANDOFF_HEX_n4" "H2" "unknown" 208000 17000 0 10000 0 100 ""]
 (
 	Pin[0 0 29868 2000 29868 12850 "1" "1" ""]
 
