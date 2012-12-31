@@ -1,5 +1,5 @@
 # release: pcb 20100929
-# date:    Mon Dec 31 15:16:47 2012
+# date:    Mon Dec 31 15:54:35 2012
 # user:    railfan (Michael Petersen,,,)
 # host:    sylvanite
 
@@ -2659,7 +2659,7 @@ Layer(4 "silk")
 	Text[6500 108500 0 100 "Iowa Scaled Engineering" "clearline"]
 	Text[192500 46500 0 100 "http://iascaled.com" "clearline"]
 	Text[49500 54500 0 122 "MRB-XIO" "clearline"]
-	Text[10500 119000 0 100 "(C) 2012" "clearline"]
+	Text[10500 119000 0 100 "(C) 2013" "clearline"]
 	Text[82500 54500 0 122 "v1.0" "clearline"]
 	Text[487500 162000 0 100 "C2" "clearline"]
 	Text[507500 162000 0 100 "C3" "clearline"]
