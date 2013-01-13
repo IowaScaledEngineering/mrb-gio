@@ -1090,7 +1090,7 @@ C 55300 60000 1 0 0 header2-1.sym
 T 56300 60650 5 10 0 0 0 0 1
 device=HEADER2
 T 55700 60900 5 10 1 1 0 0 1
-refdes=J11
+refdes=JP1
 T 55300 60000 5 10 0 0 0 0 1
 footprint=JUMPER2
 }
