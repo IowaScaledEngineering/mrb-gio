@@ -45,6 +45,54 @@ volatile uint8_t ticks;
 volatile uint16_t decisecs=0;
 volatile uint16_t update_decisecs=10;
 
+
+volatile uint8_t status=0;
+#define STATUS_READ_INPUTS 0x01
+
+/*
+  Configuration addresses:
+  0x10 - Operating mode
+     0 - Simple, all inputs
+     1 - Simple, all outputs
+     2 - Simple, 8 inputs, 8 outputs
+    20 - Complex configuration
+    
+  0x11 - Simple mode input source node address (for nodes with simple mode outputs only)
+  0x12 - Pullups for inputs 0-7
+  0x13 - Pullups for inputs 8-15
+
+  0x20 - 
+
+*/
+
+#define MRBGIO_EE_OP_MODE          0x10
+#define MRBGIO_EE_SIMPLE_SRC_ADDR  0x11
+#define MRBGIO_EE_IN0_7_PULLUPS    0x12
+#define MRBGIO_EE_IN8_15_PULLUPS   0x13
+
+#define MRBGIO_EE_CPLX_DDR_0       0x20
+#define MRBGIO_EE_CPLX_DDR_1       0x21
+
+#define MRBGIO_EE_FILTER_ADDR      0x30
+#define MRBGIO_EE_FILTER_PKT       0x40
+#define MRBGIO_EE_FILTER_BITBYTE   0x50
+#define MRBGIO_EE_FILTER_SUBTYPE   0x60
+
+
+#define MRBGIO_OP_MODE_IN16        0x00
+#define MRBGIO_OP_MODE_OUT16       0x01
+#define MRBGIO_OP_MODE_IN8OUT8     0x02
+#define MRBGIO_OP_MODE_COMPLEX     0x20
+
+
+uint8_t io_ddr[2] = {0,0}; // 1=output, 0=input
+uint8_t io_pullups[2] = {0xFF,0xFF}; // 1=on, 0=off
+uint8_t io_output[2] = {0,0};
+uint8_t io_input[2] = {0,0};
+uint8_t operatingMode = 0;
+uint8_t io_srcAddr = 0x00;
+
+
 void initialize100HzTimer(void)
 {
 	// Set up timer 1 for 100Hz interrupts
@@ -59,6 +107,9 @@ void initialize100HzTimer(void)
 
 ISR(TIMER0_COMPA_vect)
 {
+	if (ticks & 0x01)
+		status |= STATUS_READ_INPUTS;
+
 	if (++ticks >= 10)
 	{
 		ticks = 0;
@@ -178,8 +229,57 @@ void PktHandler(void)
 		sei();
 	}
 
-	// FIXME:  Insert code here to handle incoming packets specific
-	// to the device.
+	switch(operatingMode)
+	{
+		case MRBGIO_OP_MODE_OUT16:
+			// If it didn't come from our source node, get out.
+			if (io_srcAddr != mrbus_rx_buffer[MRBUS_PKT_SRC] || 'S' != mrbus_rx_buffer[MRBUS_PKT_TYPE] || mrbus_rx_buffer[MRBUS_PKT_LEN] < 8)
+				break;
+
+			io_output[0] = mrbus_rx_buffer[6];
+			io_output[1] = mrbus_rx_buffer[7];
+			break;
+
+		case MRBGIO_OP_MODE_IN8OUT8:
+			// If it didn't come from our source node, get out.
+			if (io_srcAddr != mrbus_rx_buffer[MRBUS_PKT_SRC] || 'S' != mrbus_rx_buffer[MRBUS_PKT_TYPE] || mrbus_rx_buffer[MRBUS_PKT_LEN] < 8)
+				break;
+			
+			io_output[1] = mrbus_rx_buffer[6];
+			break;	
+			
+
+		case MRBGIO_OP_MODE_COMPLEX:
+			// Complex mode can key any output from any bit on the bus using the typical src/type/bit/byte scheme
+			/* BITBYTE is computed as follows:
+				x = bit = 0-7
+				y = byte = byte in data stream (6 is first data byte)
+				xxxyyyy
+			*/
+	
+			for (i=0; i<(MRBGIO_EE_FILTER_PKT - MRBGIO_EE_FILTER_ADDR); i++)
+			{
+				if (mrbus_rx_buffer[MRBUS_PKT_SRC] == eeprom_read_byte((uint8_t*)(i+MRBGIO_EE_FILTER_ADDR)))
+				{
+					if (mrbus_rx_buffer[MRBUS_PKT_TYPE] == eeprom_read_byte((uint8_t*)(i+MRBGIO_EE_FILTER_PKT)))
+					{
+						uint8_t byteNum = eeprom_read_byte((uint8_t*)(i+MRBGIO_EE_FILTER_BITBYTE));
+						uint8_t bitNum = (byteNum>>5) & 0x07;
+						byteNum &= 0x1F;
+	
+						if (mrbus_rx_buffer[byteNum] & (1<<bitNum))
+							io_output[i/8] |= 1<<(i%8);
+						else
+							io_output[i/8] &= ~(1<<(i%8));
+					}
+				}
+			}
+		
+			break;
+			
+		default:
+			break;
+	}
 
 	//*************** END PACKET HANDLER  ***************
 
@@ -229,20 +329,89 @@ void init(void)
 
 	// This line assures that update_decisecs is at least 1
 	update_decisecs = max(1, update_decisecs);
+	update_decisecs = min(100, update_decisecs);
+}
+
+void initGIO()
+{
+	// Get Operating Mode
+	operatingMode = eeprom_read_byte((uint8_t*)MRBGIO_EE_OP_MODE);
+	if (0xFF == operatingMode)
+	{
+		eeprom_write_byte((uint8_t*)MRBGIO_EE_OP_MODE, MRBGIO_OP_MODE_IN16);
+		operatingMode = eeprom_read_byte((uint8_t*)MRBGIO_EE_OP_MODE);
+	}
+
+	switch(operatingMode)
+	{
+		case MRBGIO_OP_MODE_IN16:
+			io_ddr[0] = 0;
+			io_ddr[1] = 0;
+			io_srcAddr = eeprom_read_byte((uint8_t*)MRBGIO_EE_SIMPLE_SRC_ADDR);
+			break;
+		case MRBGIO_OP_MODE_OUT16:
+			io_ddr[0] = 0xFF;
+			io_ddr[1] = 0xFF;
+			break;
+		
+		case MRBGIO_OP_MODE_IN8OUT8:
+			io_ddr[0] = 0;
+			io_ddr[1] = 0xFF;
+			io_srcAddr = eeprom_read_byte((uint8_t*)MRBGIO_EE_SIMPLE_SRC_ADDR);
+			break;		
+
+		case MRBGIO_OP_MODE_COMPLEX:
+			io_ddr[0] = eeprom_read_byte((uint8_t*)MRBGIO_EE_CPLX_DDR_0);
+			io_ddr[1] = eeprom_read_byte((uint8_t*)MRBGIO_EE_CPLX_DDR_1);
+			break;
 	
-	// FIXME: This line assures that update_decisecs is 2 seconds or less
-	// You probably don't want this, but it prevents new developers from wondering
-	// why their new node doesn't transmit (uninitialized eeprom will make the update
-	// interval 64k decisecs, or about 110 hours)  You'll probably want to make this
-	// something more sane for your node type, or remove it entirely.
-	update_decisecs = min(20, update_decisecs);
+	}
+	
+	// Mask pullups by whatever pins are inputs
+	io_pullups[0] = ~(io_ddr[0]) & eeprom_read_byte((uint8_t*)MRBGIO_EE_IN0_7_PULLUPS);
+	io_pullups[1] = ~(io_ddr[1]) & eeprom_read_byte((uint8_t*)MRBGIO_EE_IN8_15_PULLUPS);
+	
+	DDRB = (DDRB & 0xE0) | (io_ddr[0] & 0x1F);  // IO0-IO4
+	DDRD = (DDRD & 0x07) | ((io_ddr[0]>>2) & 0x38) | ((io_ddr[1]>>6) & 0xC0); //IO5-IO9
+	DDRC = (DDRC & 0xC0) | ((io_ddr[1]<<2) & 0x3F); // IO10-IO15
+
+	
+}
+
+uint8_t debounce_inputs()
+{
+	uint8_t io_rawInputLow = (~io_ddr[0]) & ((PINB & 0x1F) | ((PIND<<2) & 0xE0)); // Low bits
+	uint8_t io_rawInputHigh = (~io_ddr[1]) & (((PIND>>6) & 0x03) | ((PINC<<2) & 0xFC)); // High bits
+	uint8_t delta0 = io_rawInputLow ^ io_input[0];
+	uint8_t delta1 = io_rawInputLow ^ io_input[1];
+	static uint8_t clock_A0=0, clock_A1=0, clock_B0=0, clock_B1=0, changes0, changes1;
+
+	clock_A0 ^= clock_B0;                     //Increment the counters
+	clock_B0  = ~clock_B0;
+	clock_A0 &= delta0;                       //Reset the counters if no changes
+	clock_B0 &= delta0;                       //were detected.
+	changes0 = ~((~delta0) | clock_A0 | clock_B0);
+	io_input[0] ^= changes0;
+
+	clock_A1 ^= clock_B1;                     //Increment the counters
+	clock_B1  = ~clock_B1;
+	clock_A1 &= delta1;                       //Reset the counters if no changes
+	clock_B1 &= delta1;                       //were detected.
+	changes1 = ~((~delta1) | clock_A1 | clock_B1);
+	io_input[1] ^= changes1;
+
+	return((0 != changes0 | changes1)?1:0);
 }
 
 
 int main(void)
 {
+	uint8_t changed = 0;
+
 	// Application initialization
 	init();
+
+	initGIO();
 
 	// Initialize a 100 Hz timer.  See the definition for this function - you can
 	// remove it if you don't use it.
@@ -260,18 +429,35 @@ int main(void)
 		// Handle any packets that may have come in
 		if (mrbus_state & MRBUS_RX_PKT_READY)
 			PktHandler();
-			
-		// FIXME: Do any module-specific behaviours here in the loop.
 		
-		if (decisecs >= update_decisecs && !(mrbus_state & (MRBUS_TX_BUF_ACTIVE | MRBUS_TX_PKT_READY)))
+		// Write outputs	
+		PORTB = (PORTB & 0xE0) | (io_output[0] & 0x1F) | (io_pullups[0] & 0x1F);  // IO0-IO4
+		PORTD = (PORTD & 0x07) | ((io_output[0]>>2) & 0x38) | ((io_output[1]>>6) & 0xC0) | ((io_pullups[0]>>2) & 0x38) | ((io_pullups[1]>>6) & 0xC0); //IO5-IO9
+		PORTC = (PORTC & 0xC0) | ((io_output[1]<<2) & 0x3F) | ((io_pullups[1]<<2) & 0x3F); // IO10-IO15
+	
+		if (status & STATUS_READ_INPUTS)
+		{
+			changed |= debounce_inputs()?1:0;
+			status &= ~STATUS_READ_INPUTS;
+		}
+		
+		if (decisecs >= update_decisecs)
+		{
+			changed |= 1;
+			decisecs = 0;
+		}
+		
+		
+		if (changed && !(mrbus_state & (MRBUS_TX_BUF_ACTIVE | MRBUS_TX_PKT_READY)))
 		{
 			mrbus_tx_buffer[MRBUS_PKT_SRC] = mrbus_dev_addr;
 			mrbus_tx_buffer[MRBUS_PKT_DEST] = 0xFF;
-			mrbus_tx_buffer[MRBUS_PKT_LEN] = 7;
+			mrbus_tx_buffer[MRBUS_PKT_LEN] = 8;
 			mrbus_tx_buffer[5] = 'S';
-			mrbus_tx_buffer[6] = pkt_count++;
+			mrbus_tx_buffer[6] = (io_output[1] & io_ddr[1]) | (io_input[1] & ~(io_ddr[1]));
+			mrbus_tx_buffer[7] = (io_output[0] & io_ddr[0]) | (io_input[0] & ~(io_ddr[0]));
 			mrbus_state |= MRBUS_TX_PKT_READY;
-			decisecs = 0;
+			changed = 0;
 		}	
 
 		// If we have a packet to be transmitted, try to send it here
@@ -293,7 +479,6 @@ int main(void)
 				break;
 			}
 
-#ifndef MRBEE
 			// If we're here, we failed to start transmission due to somebody else transmitting
 			// Given that our transmit buffer is full, priority one should be getting that data onto
 			// the bus so we can start using our tx buffer again.  So we stay in the while loop, trying
@@ -311,7 +496,6 @@ int main(void)
 				if (mrbus_state & MRBUS_RX_PKT_READY) 
 					PktHandler();
 			}
-#endif
 		}
 	}
 }
