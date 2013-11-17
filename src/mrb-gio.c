@@ -92,6 +92,11 @@ uint8_t io_input[2] = {0,0};
 uint8_t operatingMode = 0;
 uint8_t io_srcAddr = 0x00;
 
+#define MRBUS_TX_BUFFER_DEPTH 4
+#define MRBUS_RX_BUFFER_DEPTH 4
+
+MRBusPacket mrbusTxPktBufferArray[MRBUS_TX_BUFFER_DEPTH];
+MRBusPacket mrbusRxPktBufferArray[MRBUS_RX_BUFFER_DEPTH];
 
 void initialize100HzTimer(void)
 {
@@ -123,23 +128,28 @@ void PktHandler(void)
 {
 	uint16_t crc = 0;
 	uint8_t i;
+	uint8_t rxBuffer[MRBUS_BUFFER_SIZE];
+	uint8_t txBuffer[MRBUS_BUFFER_SIZE];
+	
+	if (0 == mrbusPktQueuePop(&mrbusRxQueue, rxBuffer, sizeof(rxBuffer)))
+		return;
 
 	//*************** PACKET FILTER ***************
 	// Loopback Test - did we send it?  If so, we probably want to ignore it
-	if (mrbus_rx_buffer[MRBUS_PKT_SRC] == mrbus_dev_addr) 
+	if (rxBuffer[MRBUS_PKT_SRC] == mrbus_dev_addr) 
 		goto	PktIgnore;
 
 	// Destination Test - is this for us or broadcast?  If not, ignore
-	if (0xFF != mrbus_rx_buffer[MRBUS_PKT_DEST] && mrbus_dev_addr != mrbus_rx_buffer[MRBUS_PKT_DEST]) 
+	if (0xFF != rxBuffer[MRBUS_PKT_DEST] && mrbus_dev_addr != rxBuffer[MRBUS_PKT_DEST]) 
 		goto	PktIgnore;
 	
 	// CRC16 Test - is the packet intact?
-	for(i=0; i<mrbus_rx_buffer[MRBUS_PKT_LEN]; i++)
+	for(i=0; i<rxBuffer[MRBUS_PKT_LEN]; i++)
 	{
 		if ((i != MRBUS_PKT_CRC_H) && (i != MRBUS_PKT_CRC_L)) 
-			crc = mrbusCRC16Update(crc, mrbus_rx_buffer[i]);
+			crc = mrbusCRC16Update(crc, rxBuffer[i]);
 	}
-	if ((UINT16_HIGH_BYTE(crc) != mrbus_rx_buffer[MRBUS_PKT_CRC_H]) || (UINT16_LOW_BYTE(crc) != mrbus_rx_buffer[MRBUS_PKT_CRC_L]))
+	if ((UINT16_HIGH_BYTE(crc) != rxBuffer[MRBUS_PKT_CRC_H]) || (UINT16_LOW_BYTE(crc) != rxBuffer[MRBUS_PKT_CRC_L]))
 		goto	PktIgnore;
 		
 	//*************** END PACKET FILTER ***************
@@ -159,65 +169,78 @@ void PktHandler(void)
 	// should be sent out of the main loop so that they don't step on things in
 	// the transmit buffer
 	
-	if ('A' == mrbus_rx_buffer[MRBUS_PKT_TYPE])
+	//*************** PACKET HANDLER - PROCESS HERE ***************
+
+	// Just smash the transmit buffer if we happen to see a packet directed to us
+	// that requires an immediate response
+	//
+	// If we're in here, then either we're transmitting, then we can't be 
+	// receiving from someone else, or we failed to transmit whatever we were sending
+	// and we're waiting to try again.  Either way, we're not going to corrupt an
+	// in-progress transmission.
+	//
+	// All other non-immediate transmissions (such as scheduled status updates)
+	// should be sent out of the main loop so that they don't step on things in
+	// the transmit buffer
+	
+	if ('A' == rxBuffer[MRBUS_PKT_TYPE])
 	{
 		// PING packet
-		mrbus_tx_buffer[MRBUS_PKT_DEST] = mrbus_rx_buffer[MRBUS_PKT_SRC];
-		mrbus_tx_buffer[MRBUS_PKT_SRC] = mrbus_dev_addr;
-		mrbus_tx_buffer[MRBUS_PKT_LEN] = 6;
-		mrbus_tx_buffer[MRBUS_PKT_TYPE] = 'a';
-		mrbus_state |= MRBUS_TX_PKT_READY;
+		txBuffer[MRBUS_PKT_DEST] = rxBuffer[MRBUS_PKT_SRC];
+		txBuffer[MRBUS_PKT_SRC] = mrbus_dev_addr;
+		txBuffer[MRBUS_PKT_LEN] = 6;
+		txBuffer[MRBUS_PKT_TYPE] = 'a';
+		mrbusPktQueuePush(&mrbusTxQueue, txBuffer, txBuffer[MRBUS_PKT_LEN]);
 		goto PktIgnore;
 	} 
-	else if ('W' == mrbus_rx_buffer[MRBUS_PKT_TYPE]) 
+	else if ('W' == rxBuffer[MRBUS_PKT_TYPE] && 0xFF != rxBuffer[MRBUS_PKT_DEST]) 
 	{
 		// EEPROM WRITE Packet
-		mrbus_tx_buffer[MRBUS_PKT_DEST] = mrbus_rx_buffer[MRBUS_PKT_SRC];
-		mrbus_tx_buffer[MRBUS_PKT_LEN] = 8;			
-		mrbus_tx_buffer[MRBUS_PKT_TYPE] = 'w';
-		eeprom_write_byte((uint8_t*)(uint16_t)mrbus_rx_buffer[6], mrbus_rx_buffer[7]);
-		mrbus_tx_buffer[6] = mrbus_rx_buffer[6];
-		mrbus_tx_buffer[7] = mrbus_rx_buffer[7];
-		if (MRBUS_EE_DEVICE_ADDR == mrbus_rx_buffer[6])
+		txBuffer[MRBUS_PKT_DEST] = rxBuffer[MRBUS_PKT_SRC];
+		txBuffer[MRBUS_PKT_LEN] = 8;			
+		txBuffer[MRBUS_PKT_TYPE] = 'w';
+		eeprom_write_byte((uint8_t*)(uint16_t)rxBuffer[6], rxBuffer[7]);
+		txBuffer[6] = rxBuffer[6];
+		txBuffer[7] = rxBuffer[7];
+		if (MRBUS_EE_DEVICE_ADDR == rxBuffer[6])
 			mrbus_dev_addr = eeprom_read_byte((uint8_t*)MRBUS_EE_DEVICE_ADDR);
-		mrbus_tx_buffer[MRBUS_PKT_SRC] = mrbus_dev_addr;
-		mrbus_state |= MRBUS_TX_PKT_READY;
-		goto PktIgnore;
-	
+		txBuffer[MRBUS_PKT_SRC] = mrbus_dev_addr;
+		mrbusPktQueuePush(&mrbusTxQueue, txBuffer, txBuffer[MRBUS_PKT_LEN]);
+		goto PktIgnore;	
 	}
-	else if ('R' == mrbus_rx_buffer[MRBUS_PKT_TYPE]) 
+	else if ('R' == rxBuffer[MRBUS_PKT_TYPE]) 
 	{
 		// EEPROM READ Packet
-		mrbus_tx_buffer[MRBUS_PKT_DEST] = mrbus_rx_buffer[MRBUS_PKT_SRC];
-		mrbus_tx_buffer[MRBUS_PKT_SRC] = mrbus_dev_addr;
-		mrbus_tx_buffer[MRBUS_PKT_LEN] = 8;			
-		mrbus_tx_buffer[MRBUS_PKT_TYPE] = 'r';
-		mrbus_tx_buffer[6] = mrbus_rx_buffer[6];
-		mrbus_tx_buffer[7] = eeprom_read_byte((uint8_t*)(uint16_t)mrbus_rx_buffer[6]);			
-		mrbus_state |= MRBUS_TX_PKT_READY;
+		txBuffer[MRBUS_PKT_DEST] = rxBuffer[MRBUS_PKT_SRC];
+		txBuffer[MRBUS_PKT_SRC] = mrbus_dev_addr;
+		txBuffer[MRBUS_PKT_LEN] = 8;			
+		txBuffer[MRBUS_PKT_TYPE] = 'r';
+		txBuffer[6] = rxBuffer[6];
+		txBuffer[7] = eeprom_read_byte((uint8_t*)(uint16_t)rxBuffer[6]);			
+		mrbusPktQueuePush(&mrbusTxQueue, txBuffer, txBuffer[MRBUS_PKT_LEN]);
 		goto PktIgnore;
 	}
-	else if ('V' == mrbus_rx_buffer[MRBUS_PKT_TYPE]) 
+	else if ('V' == rxBuffer[MRBUS_PKT_TYPE]) 
 	{
 		// Version
-		mrbus_tx_buffer[MRBUS_PKT_DEST] = mrbus_rx_buffer[MRBUS_PKT_SRC];
-		mrbus_tx_buffer[MRBUS_PKT_SRC] = mrbus_dev_addr;
-		mrbus_tx_buffer[MRBUS_PKT_LEN] = 16;
-		mrbus_tx_buffer[MRBUS_PKT_TYPE] = 'v';
-		mrbus_tx_buffer[6]  = MRBUS_VERSION_WIRED;
-		mrbus_tx_buffer[7]  = 0; // Software Revision
-		mrbus_tx_buffer[8]  = 0; // Software Revision
-		mrbus_tx_buffer[9]  = 0; // Software Revision
-		mrbus_tx_buffer[10]  = 0; // Hardware Major Revision
-		mrbus_tx_buffer[11]  = 0; // Hardware Minor Revision
-		mrbus_tx_buffer[12] = 'G';
-		mrbus_tx_buffer[13] = 'I';
-		mrbus_tx_buffer[14] = 'O';
-		mrbus_tx_buffer[15] = ' ';
-		mrbus_state |= MRBUS_TX_PKT_READY;
+		txBuffer[MRBUS_PKT_DEST] = rxBuffer[MRBUS_PKT_SRC];
+		txBuffer[MRBUS_PKT_SRC] = mrbus_dev_addr;
+		txBuffer[MRBUS_PKT_LEN] = 16;
+		txBuffer[MRBUS_PKT_TYPE] = 'v';
+		txBuffer[6]  = MRBUS_VERSION_WIRED;
+		txBuffer[7]  = 0; // Software Revision
+		txBuffer[8]  = 0; // Software Revision
+		txBuffer[9]  = 0; // Software Revision
+		txBuffer[10]  = 0; // Hardware Major Revision
+		txBuffer[11]  = 0; // Hardware Minor Revision
+		txBuffer[12] = 'T';
+		txBuffer[13] = 'M';
+		txBuffer[14] = 'P';
+		txBuffer[15] = 'L';
+		mrbusPktQueuePush(&mrbusTxQueue, txBuffer, txBuffer[MRBUS_PKT_LEN]);
 		goto PktIgnore;
 	}
-	else if ('X' == mrbus_rx_buffer[MRBUS_PKT_TYPE]) 
+	else if ('X' == rxBuffer[MRBUS_PKT_TYPE]) 
 	{
 		// Reset
 		cli();
@@ -227,25 +250,25 @@ void PktHandler(void)
 		WDTCSR = _BV(WDE);
 		while(1);  // Force a watchdog reset
 		sei();
-	}
-
+	}	
+	
 	switch(operatingMode)
 	{
 		case MRBGIO_OP_MODE_OUT16:
 			// If it didn't come from our source node, get out.
-			if (io_srcAddr != mrbus_rx_buffer[MRBUS_PKT_SRC] || 'S' != mrbus_rx_buffer[MRBUS_PKT_TYPE] || mrbus_rx_buffer[MRBUS_PKT_LEN] < 8)
-				break;
-
-			io_output[0] = mrbus_rx_buffer[6];
-			io_output[1] = mrbus_rx_buffer[7];
+			if (io_srcAddr == rxBuffer[MRBUS_PKT_SRC] && 'S' == rxBuffer[MRBUS_PKT_TYPE] && rxBuffer[MRBUS_PKT_LEN] >= 8)
+			{
+				io_output[1] = rxBuffer[6];
+				io_output[0] = rxBuffer[7];
+			}
 			break;
 
 		case MRBGIO_OP_MODE_IN8OUT8:
 			// If it didn't come from our source node, get out.
-			if (io_srcAddr != mrbus_rx_buffer[MRBUS_PKT_SRC] || 'S' != mrbus_rx_buffer[MRBUS_PKT_TYPE] || mrbus_rx_buffer[MRBUS_PKT_LEN] < 8)
-				break;
-			
-			io_output[1] = mrbus_rx_buffer[6];
+			if (io_srcAddr == rxBuffer[MRBUS_PKT_SRC] && 'S' == rxBuffer[MRBUS_PKT_TYPE] && rxBuffer[MRBUS_PKT_LEN] >= 8)
+			{
+				io_output[1] = rxBuffer[7];
+			}
 			break;	
 			
 
@@ -259,15 +282,15 @@ void PktHandler(void)
 	
 			for (i=0; i<(MRBGIO_EE_FILTER_PKT - MRBGIO_EE_FILTER_ADDR); i++)
 			{
-				if (mrbus_rx_buffer[MRBUS_PKT_SRC] == eeprom_read_byte((uint8_t*)(i+MRBGIO_EE_FILTER_ADDR)))
+				if (rxBuffer[MRBUS_PKT_SRC] == eeprom_read_byte((uint8_t*)(i+MRBGIO_EE_FILTER_ADDR)))
 				{
-					if (mrbus_rx_buffer[MRBUS_PKT_TYPE] == eeprom_read_byte((uint8_t*)(i+MRBGIO_EE_FILTER_PKT)))
+					if (rxBuffer[MRBUS_PKT_TYPE] == eeprom_read_byte((uint8_t*)(i+MRBGIO_EE_FILTER_PKT)))
 					{
 						uint8_t byteNum = eeprom_read_byte((uint8_t*)(i+MRBGIO_EE_FILTER_BITBYTE));
 						uint8_t bitNum = (byteNum>>5) & 0x07;
 						byteNum &= 0x1F;
 	
-						if (mrbus_rx_buffer[byteNum] & (1<<bitNum))
+						if (rxBuffer[byteNum] & (1<<bitNum))
 							io_output[i/8] |= 1<<(i%8);
 						else
 							io_output[i/8] &= ~(1<<(i%8));
@@ -292,7 +315,6 @@ PktIgnore:
 	// This section resets anything that needs to be reset in order to allow us to receive
 	// another packet.  Typically, that's just clearing the MRBUS_RX_PKT_READY flag to 
 	// indicate to the core library that the mrbus_rx_buffer is clear.
-	mrbus_state &= (~MRBUS_RX_PKT_READY);
 	return;	
 }
 
@@ -347,11 +369,11 @@ void initGIO()
 		case MRBGIO_OP_MODE_IN16:
 			io_ddr[0] = 0;
 			io_ddr[1] = 0;
-			io_srcAddr = eeprom_read_byte((uint8_t*)MRBGIO_EE_SIMPLE_SRC_ADDR);
 			break;
 		case MRBGIO_OP_MODE_OUT16:
 			io_ddr[0] = 0xFF;
 			io_ddr[1] = 0xFF;
+			io_srcAddr = eeprom_read_byte((uint8_t*)MRBGIO_EE_SIMPLE_SRC_ADDR);
 			break;
 		
 		case MRBGIO_OP_MODE_IN8OUT8:
@@ -372,18 +394,33 @@ void initGIO()
 	io_pullups[1] = ~(io_ddr[1]) & eeprom_read_byte((uint8_t*)MRBGIO_EE_IN8_15_PULLUPS);
 	
 	DDRB = (DDRB & 0xE0) | (io_ddr[0] & 0x1F);  // IO0-IO4
-	DDRD = (DDRD & 0x07) | ((io_ddr[0]>>2) & 0x38) | ((io_ddr[1]>>6) & 0xC0); //IO5-IO9
-	DDRC = (DDRC & 0xC0) | ((io_ddr[1]<<2) & 0x3F); // IO10-IO15
-
-	
+	DDRD = (DDRD & 0x07) | ((io_ddr[0]>>2) & 0x38) | ((io_ddr[1]<<6) & 0xC0); //IO5-IO9
+	DDRC = (DDRC & 0xC0) | ((io_ddr[1]>>2) & 0x3F); // IO10-IO15
 }
+
+// IO0  - PB0
+// IO1  - PB1
+// IO2  - PB2
+// IO3  - PB3
+// IO4  - PB4
+// IO5  - PD3
+// IO6  - PD4
+// IO7  - PD5
+// IO8  - PD6
+// IO9  - PD7
+// IO10 - PC0
+// IO11 - PC1
+// IO12 - PC2
+// IO13 - PC3
+// IO14 - PC4
+// IO15 - PC5
 
 uint8_t debounce_inputs()
 {
 	uint8_t io_rawInputLow = (~io_ddr[0]) & ((PINB & 0x1F) | ((PIND<<2) & 0xE0)); // Low bits
 	uint8_t io_rawInputHigh = (~io_ddr[1]) & (((PIND>>6) & 0x03) | ((PINC<<2) & 0xFC)); // High bits
 	uint8_t delta0 = io_rawInputLow ^ io_input[0];
-	uint8_t delta1 = io_rawInputLow ^ io_input[1];
+	uint8_t delta1 = io_rawInputHigh ^ io_input[1];
 	static uint8_t clock_A0=0, clock_A1=0, clock_B0=0, clock_B1=0, changes0, changes1;
 
 	clock_A0 ^= clock_B0;                     //Increment the counters
@@ -400,7 +437,7 @@ uint8_t debounce_inputs()
 	changes1 = ~((~delta1) | clock_A1 | clock_B1);
 	io_input[1] ^= changes1;
 
-	return((0 != changes0 | changes1)?1:0);
+	return(0 != (changes0 | changes1)?1:0);
 }
 
 
@@ -418,6 +455,8 @@ int main(void)
 	initialize100HzTimer();
 
 	// Initialize MRBus core
+	mrbusPktQueueInitialize(&mrbusTxQueue, mrbusTxPktBufferArray, MRBUS_TX_BUFFER_DEPTH);
+	mrbusPktQueueInitialize(&mrbusRxQueue, mrbusRxPktBufferArray, MRBUS_RX_BUFFER_DEPTH);
 	mrbusInit();
 
 	sei();	
@@ -427,13 +466,13 @@ int main(void)
 		wdt_reset();
 
 		// Handle any packets that may have come in
-		if (mrbus_state & MRBUS_RX_PKT_READY)
+		if (mrbusPktQueueDepth(&mrbusRxQueue))
 			PktHandler();
 		
 		// Write outputs	
 		PORTB = (PORTB & 0xE0) | (io_output[0] & 0x1F) | (io_pullups[0] & 0x1F);  // IO0-IO4
-		PORTD = (PORTD & 0x07) | ((io_output[0]>>2) & 0x38) | ((io_output[1]>>6) & 0xC0) | ((io_pullups[0]>>2) & 0x38) | ((io_pullups[1]>>6) & 0xC0); //IO5-IO9
-		PORTC = (PORTC & 0xC0) | ((io_output[1]<<2) & 0x3F) | ((io_pullups[1]<<2) & 0x3F); // IO10-IO15
+		PORTD = (PORTD & 0x07) | ((io_output[0]>>2) & 0x38) | ((io_output[1]<<6) & 0xC0) | ((io_pullups[0]>>2) & 0x38) | ((io_pullups[1]<<6) & 0xC0); //IO5-IO9
+		PORTC = (PORTC & 0xC0) | ((io_output[1]>>2) & 0x3F) | ((io_pullups[1]>>2) & 0x3F); // IO10-IO15
 	
 		if (status & STATUS_READ_INPUTS)
 		{
@@ -448,53 +487,43 @@ int main(void)
 		}
 		
 		
-		if (changed && !(mrbus_state & (MRBUS_TX_BUF_ACTIVE | MRBUS_TX_PKT_READY)))
+		if (changed && !(mrbusPktQueueFull(&mrbusTxQueue)))
 		{
-			mrbus_tx_buffer[MRBUS_PKT_SRC] = mrbus_dev_addr;
-			mrbus_tx_buffer[MRBUS_PKT_DEST] = 0xFF;
-			mrbus_tx_buffer[MRBUS_PKT_LEN] = 8;
-			mrbus_tx_buffer[5] = 'S';
-			mrbus_tx_buffer[6] = (io_output[1] & io_ddr[1]) | (io_input[1] & ~(io_ddr[1]));
-			mrbus_tx_buffer[7] = (io_output[0] & io_ddr[0]) | (io_input[0] & ~(io_ddr[0]));
-			mrbus_state |= MRBUS_TX_PKT_READY;
+			uint8_t txBuffer[MRBUS_BUFFER_SIZE];		
+		
+			txBuffer[MRBUS_PKT_SRC] = mrbus_dev_addr;
+			txBuffer[MRBUS_PKT_DEST] = 0xFF;
+			txBuffer[MRBUS_PKT_LEN] = 8;
+			txBuffer[5] = 'S';
+			txBuffer[6] = (io_output[1] & io_ddr[1]) | (io_input[1] & ~(io_ddr[1]));
+			txBuffer[7] = (io_output[0] & io_ddr[0]) | (io_input[0] & ~(io_ddr[0]));
+			mrbusPktQueuePush(&mrbusTxQueue, txBuffer, txBuffer[MRBUS_PKT_LEN]);
 			changed = 0;
 		}	
 
-		// If we have a packet to be transmitted, try to send it here
-		while(mrbus_state & MRBUS_TX_PKT_READY)
+		if (mrbusPktQueueDepth(&mrbusTxQueue))
 		{
-			uint8_t bus_countdown;
-
-			// Even while we're sitting here trying to transmit, keep handling
-			// any packets we're receiving so that we keep up with the current state of the
-			// bus.  Obviously things that request a response cannot go, since the transmit
-			// buffer is full.
-			if (mrbus_state & MRBUS_RX_PKT_READY)
-				PktHandler();
-
-
-			if (0 == mrbusPacketTransmit())
-			{
-				mrbus_state &= ~(MRBUS_TX_PKT_READY);
-				break;
-			}
+			uint8_t fail = mrbusTransmit();
 
 			// If we're here, we failed to start transmission due to somebody else transmitting
 			// Given that our transmit buffer is full, priority one should be getting that data onto
 			// the bus so we can start using our tx buffer again.  So we stay in the while loop, trying
 			// to get bus time.
 
-			// We want to wait 20ms before we try a retransmit
+			// We want to wait 20ms before we try a retransmit to avoid hammering the bus
 			// Because MRBus has a minimum packet size of 6 bytes @ 57.6kbps,
 			// need to check roughly every millisecond to see if we have a new packet
 			// so that we don't miss things we're receiving while waiting to transmit
-			bus_countdown = 20;
-			while (bus_countdown-- > 0 && MRBUS_ACTIVITY_RX_COMPLETE != mrbus_activity)
+			if (fail)
 			{
-				//clrwdt();
-				_delay_ms(1);
-				if (mrbus_state & MRBUS_RX_PKT_READY) 
-					PktHandler();
+				uint8_t bus_countdown = 20;
+				while (bus_countdown-- > 0 && !mrbusIsBusIdle())
+				{
+					wdt_reset();
+					_delay_ms(1);
+					if (mrbusPktQueueDepth(&mrbusRxQueue))
+						PktHandler();
+				}
 			}
 		}
 	}

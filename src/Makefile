@@ -79,8 +79,8 @@ FUSE_E  = 0x04
 
 # MRBus
 DEFINES = -DMRBUS
-SRCS = $(BASE_NAME).c ../../mrbus/src/mrbus-avr.c ../../mrbus/src/mrbus-crc.c
-INCS = ../../mrbus/src/mrbus.h ../../mrbus/src/mrbus-avr.h
+SRCS = $(BASE_NAME).c ../../mrbus2/src/mrbus-avr.c ../../mrbus2/src/mrbus-crc.c ../../mrbus2/src/mrbus-queue.c
+INCS = ../../mrbus2/src/mrbus.h ../../mrbus2/src/mrbus-avr.h
 
 # MRBee
 #DEFINES = -DMRBEE -DMRBEE_BAUD=115200
@@ -91,8 +91,8 @@ AVRDUDE = avrdude -c usbtiny -p $(DEVICE) -B2
 AVRDUDE_SLOW = avrdude -c usbtiny -p $(DEVICE) -B32 
 
 OBJS = ${SRCS:.c=.o}
-INCLUDES = -I. -I../../mrbus/src -I../../mrbee/src
-CFLAGS  = $(INCLUDES) -Wall -Os
+INCLUDES = -I. -I../../mrbus2/src 
+CFLAGS  = $(INCLUDES) -Wall -O2 -std=c99
 
 COMPILE = avr-gcc $(DEFINES) -DF_CPU=$(F_CPU) $(CFLAGS) -mmcu=$(DEVICE)
 
@@ -120,6 +120,9 @@ fuse:
 
 read:
 	$(AVRDUDE) -v
+
+terminal:
+	$(AVRDUDE) -t
 
 # rule for uploading firmware:
 flash: $(BASE_NAME).hex
