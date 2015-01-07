@@ -1,0 +1,45 @@
+Commands:
+readPins (C R)
+Read pin state of all pins.
+Returns (c r pin[15:0])
+
+writePins (C W port[15:0])
+Writes port word to outputs.  Only affects pins configured as output.  Does
+NOT set/clear pull-up state (that is determined in EEPROM).
+Returns (c w port[15:0])
+
+Outgoing Packets:
+status - (S pin[15:0])
+Sends pin state of all pins.  Triggered periodically (if configured in
+EEPROM) and upon input pin state change if in status trigger mode (see
+below).
+
+
+
+EEPROM:
+0x00 - 0x0F: Standard MRBus
+
+0x10: ddr - Data direction mask (0 = input, 1 = output) high-byte
+0x11: " low byte
+0x12: pull - Pull-up mask (0 = disabled, 1 = enabled), only applies to inputs, high byte
+0x13: " low byte
+0x14: trigger - Trigger type upon input change (0 = status, 1 = command), only applies to inputs
+
+0x20: debouncePin0 - debounce for Pin 0 (0 = disabled, 1-255 = varying degrees of debounce)
+0x21: debouncePin1
+...
+0x2F: debouncePin16
+
+
+Command Packets for trigger = command mode.
+src dest len crc crc 'C' data1 ... data14
+    ^^^^ ^^^             ^^^^^ ... ^^^^^^
+(src and 'C' are implied.  crc is calculated.)
+
+0x100 - 0x10F: Command Packet for Pin0 = 0 (dest len data1 ... data14)
+0x110 - 0x11F: Command Packet for Pin0 = 1
+0x120 - 0x12F: Command Packet for Pin1 = 0 (dest len data1 ... data14)
+0x130 - 0x13F: Command Packet for Pin1 = 1
+...
+0x2E0 - 0x2EF: Command Packet for Pin15 = 0 (dest len data1 ... data14)
+0x2F0 - 0x2FF: Command Packet for Pin15 = 1
