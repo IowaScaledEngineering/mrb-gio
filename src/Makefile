@@ -41,7 +41,7 @@ BASE_NAME = mrb-gio
 #FUSE_E  = 0x04
 
 # ATmega328P 20MHz @ 5.0V
-DEVICE  = atmega328p
+DEVICE  = atmega328
 F_CPU   = 20000000  # Hz
 FUSE_L  = 0xD7
 FUSE_H  = 0xD1
