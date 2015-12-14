@@ -124,6 +124,41 @@ ISR(TIMER0_COMPA_vect)
 
 // End of 100Hz timer
 
+
+// **** Bus Voltage Monitor
+
+volatile uint8_t busVoltage=0;
+
+ISR(ADC_vect)
+{
+	static uint16_t busVoltageAccum=0;
+	static uint8_t busVoltageCount=0;
+
+	busVoltageAccum += ADC;
+	if (++busVoltageCount >= 64)
+	{
+		busVoltageAccum = busVoltageAccum / 64;
+		//At this point, we're at (Vbus/3) / 5 * 1024
+		//So multiply by 150, divide by 1024, or multiply by 75 and divide by 512
+		busVoltage = ((uint32_t)busVoltageAccum * 75) / 512;
+		busVoltageAccum = 0;
+		busVoltageCount = 0;
+	}
+}
+
+void initializeADC()
+{
+	// Setup ADC
+	ADMUX  = 0x47;  // AVCC reference; ADC7 input
+	ADCSRA = _BV(ADATE) | _BV(ADIF) | _BV(ADPS2) | _BV(ADPS1); // 128 prescaler
+	ADCSRB = 0x00;
+	DIDR0  = 0x00;  // No digitals were harmed in the making of this ADC
+
+	busVoltage = 0;
+	ADCSRA |= _BV(ADEN) | _BV(ADSC) | _BV(ADIE) | _BV(ADIF);
+}
+
+
 void PktHandler(void)
 {
 	uint16_t crc = 0;
@@ -228,15 +263,19 @@ void PktHandler(void)
 		txBuffer[MRBUS_PKT_LEN] = 16;
 		txBuffer[MRBUS_PKT_TYPE] = 'v';
 		txBuffer[6]  = MRBUS_VERSION_WIRED;
-		txBuffer[7]  = 0; // Software Revision
-		txBuffer[8]  = 0; // Software Revision
-		txBuffer[9]  = 0; // Software Revision
-		txBuffer[10]  = 0; // Hardware Major Revision
+#ifndef GIT_REV
+// This stubs in GIT_REV to 0 in case the make system isn't providing the current git revisions
+#define GIT_REV=0L
+#endif				
+		txBuffer[7]  = 0xFF & ((uint32_t)(GIT_REV))>>16; // Software Revision
+		txBuffer[8]  = 0xFF & ((uint32_t)(GIT_REV))>>8; // Software Revision
+		txBuffer[9]  = 0xFF & (GIT_REV); // Software Revision
+		txBuffer[10]  = 1; // Hardware Major Revision
 		txBuffer[11]  = 0; // Hardware Minor Revision
-		txBuffer[12] = 'T';
-		txBuffer[13] = 'M';
-		txBuffer[14] = 'P';
-		txBuffer[15] = 'L';
+		txBuffer[12] = 'G';
+		txBuffer[13] = 'I';
+		txBuffer[14] = 'O';
+		txBuffer[15] = ' ';
 		mrbusPktQueuePush(&mrbusTxQueue, txBuffer, txBuffer[MRBUS_PKT_LEN]);
 		goto PktIgnore;
 	}
@@ -447,7 +486,7 @@ int main(void)
 
 	// Application initialization
 	init();
-
+	initializeADC();
 	initGIO();
 
 	// Initialize a 100 Hz timer.  See the definition for this function - you can
@@ -493,10 +532,12 @@ int main(void)
 		
 			txBuffer[MRBUS_PKT_SRC] = mrbus_dev_addr;
 			txBuffer[MRBUS_PKT_DEST] = 0xFF;
-			txBuffer[MRBUS_PKT_LEN] = 8;
+			txBuffer[MRBUS_PKT_LEN] = 9;
 			txBuffer[5] = 'S';
 			txBuffer[6] = (io_output[1] & io_ddr[1]) | (io_input[1] & ~(io_ddr[1]));
 			txBuffer[7] = (io_output[0] & io_ddr[0]) | (io_input[0] & ~(io_ddr[0]));
+			txBuffer[8] = (uint8_t)busVoltage;			
+			
 			mrbusPktQueuePush(&mrbusTxQueue, txBuffer, txBuffer[MRBUS_PKT_LEN]);
 			changed = 0;
 		}	

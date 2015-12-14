@@ -1,5 +1,5 @@
 #*************************************************************************
-#Title:    MRB-GIO Example Makefile
+#Title:    MRB-GIO Makefile
 #Authors:  Michael Petersen <railfan@drgw.net>
 #          Nathan Holmes <maverick@drgw.net>
 #File:     MRB-AVRTEMPLATE Makefile
@@ -37,8 +37,8 @@ FUSE_E  = 0x04
 GITREV := 'GIT_REV=0x$(shell git rev-parse --short=6 HEAD)L'
 
 MRBUS_DIRECTORY=./mrbus/src
-PROGRAMMER_TYPE=avrispmkii
-#PROGRAMMER_TYPE=usbtiny
+#PROGRAMMER_TYPE=avrispmkii
+PROGRAMMER_TYPE=usbtiny
 PROGRAMMER_PORT=usb
 
 SRCS = $(BASE_NAME).c 
